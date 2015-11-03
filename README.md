@@ -1,2 +1,3 @@
-# CS5220
-Course Final Project
+## Goals
+
+4. Implement a Monte Carlo integration application
