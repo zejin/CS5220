@@ -17,7 +17,7 @@ OMP_CFLAGS=$(CFLAGS) -openmp
 # ===
 # Rules
 
-mpi: driverLTM_mpi.cpp RngStream.cpp RngStreamSupp.cpp funclass.cpp
+LTM_mpi: driverLTM_mpi.cpp RngStream.cpp RngStreamSupp.cpp funclass.cpp
 	$(MPICC) $(MPI_CFLAGS) $^ -o $@
 
 # mpi: ranMPI.o RngStream.o RngStreamSupp.o
