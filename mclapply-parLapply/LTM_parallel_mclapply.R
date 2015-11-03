@@ -1,0 +1,94 @@
+# LTM_parallel.R
+# Using RngStreams for Parallel Random Number Generation in C++ and R
+# Computational Statistics Andrew Karl, Randy Eubank, Jelena Milovanovic, Mark
+# Reiser, Dennis Young 
+#akarl@asu.edu 
+#R Libraries are loaded within functions to be clear
+#about which functions require which packages.
+#The functions in this program are described in the paper.
+
+#data features all possible response patterns
+patn <- expand.grid(rep(list(0:1), 5))
+#this step ensures that the coefficient matrix matches
+#the one used by the C++ programs
+patn <- patn[ ,5:1]
+# coefficients alpha_i and beta. Slope (beta) is last element
+coefVec <- as.vector(c(-1.868265, -0.7910062, -1.46098, 
+                       -0.521506, -1.992975, 1.011268), 
+                     mode = "double")
+# simulation parameters
+nSim <- 1e+05
+nP <- 4
+DriverLTMmclapply <- function(patn, coefVec, nSim, nP) {
+  library(parallel)
+  library(rstream)
+  rngList <- c(new("rstream.mrg32k3a", 
+                   seed = c(1806547166, 3311292359, 643431772, 
+                            1162448557, 3335719306, 4161054083),
+                            force.seed = TRUE), 
+               replicate(nP - 1, new("rstream.mrg32k3a")))
+  result <- mclapply(rngList, ProbFuncmclapply, nSim, nP, 
+                     coefVec, patn, mc.cores=nP)
+  # now average across processes
+  prob <- vector(mode = "double", length = nrow(patn))
+  for (i in 1:nP) {
+    prob <- prob + result[[i]]
+  }
+  prob/nP
+}
+DriverLTMparLapply <- function(patn, coefVec, nSim, nP) {
+  library(parallel)
+  cl <- makeCluster(nP)
+  clusterSetRNGStream(cl, 123)
+  clusterExport(cl, c("patn", "coefVec", "nSim", "nP"))
+  clusterExport(cl, c("ProbMatFunc", "PFunc", "VecPFunc", 
+                      "ProbFuncparLapply"))
+  result <- parLapply(cl, seq_len(nP), 
+                      function(...) ProbFuncparLapply(nSim, 
+                                          nP, coefVec, patn))
+  stopCluster(cl)
+  # now average across threads
+  prob <- vector(mode = "double", length = nrow(patn))
+  for (i in 1:nP) {
+    prob <- prob + result[[i]]
+  }
+  prob/nP
+}
+ProbMatFunc <- function(z, coefVec, patn) {
+  novars <- ncol(patn)
+  probTemp <- vector(mode = "double", length = novars)
+  probMat <- matrix(0, nrow(patn), novars)
+  # compute the logistic probabilities
+  for (i in 1:novars) {
+    probTemp[i] <- 1/(1 + exp(-(-coefVec[i] + 
+                                coefVec[length(coefVec)] * z)))
+    #assign probabilities to each pattern for each variable
+    probMat[ ,i] <- ifelse(patn[ ,i] == 0, (1 - probTemp[i]), 
+                           probTemp[i])
+  }  
+  probMat
+}
+PFunc <- function(z, coefVec, patn) {
+  ncells <- nrow(patn)
+  probMat <- ProbMatFunc(z, coefVec, patn)
+  p <- matrix(0, ncells, 1)
+  # multiply the probabilities across variables
+  p <- as.matrix(dnorm(z) * apply(probMat, 1, prod), ncells, 1)
+  p
+}
+# vectorize the functions above for use with apply
+VecPFunc <- Vectorize(PFunc, vectorize.args = "z")
+ProbFuncmclapply <- function(rngObj, nSim, nP, coefVec, patn) {
+  Z <- qnorm(rstream.sample(rngObj, round(nSim/nP, 0)), 0, 2)
+  prob <- colMeans(apply(VecPFunc(Z, coefVec = coefVec, 
+                                  patn = patn), 
+                         1, function(y) y/dnorm(Z, 0, 2)))
+}
+ProbFuncparLapply <- function(nSim, nP, coefVec, patn) {
+  Z <- qnorm(runif(round(nSim/nP, 0)), 0, 2)
+  prob <- colMeans(apply(VecPFunc(Z, coefVec = coefVec, 
+                                  patn = patn), 
+                         1, function(y) y/dnorm(Z, 0, 2)))
+}
+# The following command executes the mclapply version of the program 
+DriverLTMmclapply(patn,coefVec,nSim,nP)

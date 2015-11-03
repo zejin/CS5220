@@ -1,0 +1,9 @@
+#!/bin/sh -l
+
+#PBS -l nodes=1:ppn=8
+#PBS -l walltime=0:30:00
+#PBS -N parLapply
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+R CMD BATCH --no-restore LTM_parallel_parLapply.R
