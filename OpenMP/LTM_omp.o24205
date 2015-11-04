@@ -1,3 +1,5 @@
+strong scaling
+number of processors: 4
 Integration results:
 0.010591032
 0.014465339
@@ -31,4 +33,4 @@ Integration results:
 0.119237442
 0.027375482
 0.310245431
-time with 4 processes was 0.060147047
+time with 4 processes was 0.050975084
