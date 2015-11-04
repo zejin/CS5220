@@ -35,7 +35,7 @@ Type 'q()' to quit R.
 +                      mode = "double")
 > # simulation parameters
 > nSim <- 1e+05
-> nP <- 4
+> # nP <- 4
 > DriverLTMmclapply <- function(patn, coefVec, nSim, nP) {
 +   library(parallel)
 +   library(rstream)
@@ -108,14 +108,25 @@ Type 'q()' to quit R.
 +                          1, function(y) y/dnorm(Z, 0, 2)))
 + }
 > # The following command executes the mclapply version of the program 
-> DriverLTMmclapply(patn,coefVec,nSim,nP)
- [1] 0.010591032 0.014465339 0.003321068 0.007459930 0.008497401 0.019087239
- [7] 0.004382200 0.016301170 0.004348307 0.009767360 0.002242468 0.008341667
-[13] 0.005737658 0.021343283 0.004900161 0.031011491 0.012769320 0.028683011
-[19] 0.006585274 0.024496295 0.016849315 0.062677083 0.014389904 0.091068923
-[25] 0.008622165 0.032073241 0.007363630 0.046601970 0.018840844 0.119237442
-[31] 0.027375482 0.310245431
+> for (nP in c(1,2,4,8)) {
++     cat("number of processors:", nP, "\n")
++     ptm <- proc.time()
++     DriverLTMmclapply(patn,coefVec,nSim,nP) 
++     print(proc.time() - ptm)
++ }
+number of processors: 1 
+   user  system elapsed 
+ 48.532   0.126  48.740 
+number of processors: 2 
+   user  system elapsed 
+ 23.225   0.194  23.398 
+number of processors: 4 
+   user  system elapsed 
+ 59.726   0.628  12.372 
+number of processors: 8 
+   user  system elapsed 
+ 61.396   1.437   7.366 
 > 
 > proc.time()
    user  system elapsed 
- 40.114   0.351  13.738 
+193.083   2.410  92.103 

@@ -18,7 +18,7 @@ coefVec <- as.vector(c(-1.868265, -0.7910062, -1.46098,
                      mode = "double")
 # simulation parameters
 nSim <- 1e+05
-nP <- 4
+# nP <- 4
 DriverLTMmclapply <- function(patn, coefVec, nSim, nP) {
   library(parallel)
   library(rstream)
@@ -91,4 +91,9 @@ ProbFuncparLapply <- function(nSim, nP, coefVec, patn) {
                          1, function(y) y/dnorm(Z, 0, 2)))
 }
 # The following command executes the mclapply version of the program 
-DriverLTMmclapply(patn,coefVec,nSim,nP)
+for (nP in c(1,2,4,8)) {
+    cat("number of processors:", nP, "\n")
+    ptm <- proc.time()
+    DriverLTMmclapply(patn,coefVec,nSim,nP) 
+    print(proc.time() - ptm)
+}
