@@ -1,3 +1,3 @@
 ## Goals
 
-4. Implement a Monte Carlo integration application
+5. Implement a test of independence

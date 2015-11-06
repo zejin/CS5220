@@ -1,0 +1,42 @@
+
+R version 3.2.1 (2015-06-18) -- "World-Famous Astronaut"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-redhat-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> dyn.load("bar.so")
+> 
+> bar <- function(x) {
++    if (!is.numeric(x))
++       stop("argument x must be numeric")
++    out <- .C("bar",
++              n=as.integer(length(x)),
++              x=as.double(x))
++    return(out$x)
++ }
+> 
+> x <- rnorm(10)
+> 
+> x2 <- bar(x)
+> 
+> identical(x^2, x2)
+[1] TRUE
+> 
+> proc.time()
+   user  system elapsed 
+  0.244   0.027   0.268 
