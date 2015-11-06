@@ -87,7 +87,8 @@ implementation that necessitates the creation and linking of a compiled library.
 2. Employ **RngStreams** in C++ programs parallelized via **OpenMP** and **MPI**
 3. Employ **RngStreams** in R programs parallelized through the [parallel](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) and 
 [rstream](https://cran.r-project.org/web/packages/rstream/rstream.pdf) packages
-4. Implement a Monte Carlo integration application
+4. Implement a Monte Carlo integration
+5. Implement a test of independence
 
 ## References
 
