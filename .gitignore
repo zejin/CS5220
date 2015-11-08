@@ -1,3 +1,2 @@
-*.RData
-mclapply.o*
-parLapply.o*
+mpi
+omp
