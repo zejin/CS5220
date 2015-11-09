@@ -2,4 +2,3 @@ mpi
 omp
 *.o
 *.so
-bar.o*
