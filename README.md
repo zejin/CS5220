@@ -1,4 +1,4 @@
-# Using RngStreams for parallel random number generation in C++ and R
+# Using RngStreams for parallel random number generation in C/C++ and R
 
 Simulation studies are in many respects the ideal application for parallel processing.
 They are “naturally parallel” in the sense that computations may generally be conducted
@@ -87,8 +87,9 @@ implementation that necessitates the creation and linking of a compiled library.
 2. Employ **RngStreams** in C++ programs parallelized via **OpenMP** and **MPI**
 3. Employ **RngStreams** in R programs parallelized through the [parallel](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) and 
 [rstream](https://cran.r-project.org/web/packages/rstream/rstream.pdf) packages
-4. Implement a Monte Carlo integration
-5. Implement a test of independence
+4. Employ **.Call** in R/C interfaces parallelized via **OpenMP**
+5. Implement a Monte Carlo integration
+6. Implement a test of independence
 
 ## References
 
