@@ -1,3 +1,5 @@
 *.RData
 mclapply.o*
 parLapply.o*
+LTM_mpi
+LTM_omp
