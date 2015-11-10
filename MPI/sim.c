@@ -73,8 +73,8 @@ int main(int argc, char** argv)
 			   3335719306, 4161054083};
   RngStream_SetPackageSeed(seed);
   
-  RngStream RngArray[nrep];
-  for (i = 0; i < nrep; ++i) {
+  RngStream RngArray[nproc];
+  for (i = 0; i < nproc; ++i) {
     RngArray[i] = RngStream_CreateStream(NULL);
   }
 

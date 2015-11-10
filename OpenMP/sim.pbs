@@ -6,4 +6,4 @@
 #PBS -j oe
 
 cd $PBS_O_WORKDIR
-./sim -o 24 -p 8
+./sim -o 25 -d 5 -r 24 -p 8

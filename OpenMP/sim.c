@@ -35,25 +35,29 @@ int main(int argc, char** argv)
   //
   double t0 = omp_get_wtime();
 
-  int rank, i;
-  int nobs = 10;
-  int nrep = 1;
-  int nproc = 1;
+  int rank, i, j, k;
+  double a, b;
+  int nobs = 25;
+  int ndim = 5;
+  int nrep = 16;
+  int nproc = 8;
 
   extern char* optarg;
-  const char* optstring = "o:r:p:";
+  const char* optstring = "o:d:r:p:";
   int c;
   while ((c = getopt(argc, argv, optstring)) != -1) {
     switch (c) {
     case 'o': nobs = atoi(optarg); break; // number of observations
+    case 'd': ndim = atoi(optarg); break; // number of dimensions
     case 'r': nrep = atoi(optarg); break; // number of repetitions
     case 'p': nproc = atoi(optarg); break; // number of processors
     }
   }
 
-  assert(nobs % nproc == 0);
+  assert(nrep % nproc == 0);
 
   printf("nobs: %d\n", nobs);
+  printf("ndim: %d\n", ndim);
   printf("nrep: %d\n", nrep);
   printf("nproc: %d\n", nproc);
 
@@ -69,38 +73,66 @@ int main(int argc, char** argv)
   }
 
   //
-  double* global = (double*) malloc(nobs*sizeof(double));
+  double* x;
+  double* y;
   double* local;
   int* index;
+  double* global = (double*) malloc(nrep*sizeof(double));
 
   omp_set_num_threads(nproc);
 
-#pragma omp parallel default(shared) private(rank, i, index, local) 
+  #pragma omp parallel default(shared) \
+  private(rank, i, j, k, a, b, x, y, local, index) 
   {
     rank = omp_get_thread_num();
-    local = (double*) malloc(nobs/nproc*sizeof(double));
-    index = (int*) malloc(nobs/nproc*sizeof(int));
 
-    for (i = 0; i < nobs/nproc; ++i) {
-      global[rank*nobs/nproc+i] = RngStream_RandNormal(RngArray[rank]);
+    x = (double*) malloc(nobs*ndim*nrep/nproc*sizeof(double));
+    y = (double*) malloc(nobs*ndim*nrep/nproc*sizeof(double));
+    local = (double*) malloc(nrep/nproc*sizeof(double));
+    index = (int*) malloc(nobs*sizeof(int));
+
+    for (i = 0; i < nobs*ndim*nrep/nproc; ++i) {
+      x[i] = RngStream_RandNormal(RngArray[rank]);
     }
 
-    for (i = 0; i < nobs/nproc; ++i) {
+    for (i = 0; i < nobs*ndim*nrep/nproc; ++i) {
+      y[i] = RngStream_RandNormal(RngArray[rank]);
+    }
+
+    for (i = 0; i < nrep/nproc; ++i) {
+      for (j = 0; j < nobs; ++j) {
+        b = 0.0;
+        for (k = 0; k < ndim; ++k) {
+          a = x[i*nobs*ndim+j*ndim+k] - y[i*nobs*ndim+j*ndim+k];
+          b += a * a;
+        }
+        b = sqrt(b);
+        local[i] += b;
+      }
+    }
+
+    for (i = 0; i < nobs; ++i) {
       index[i] = i;
     }
-    RngStream_RandShuffle(RngArray[rank], index, nobs/nproc); 
+    RngStream_RandShuffle(RngArray[rank], index, nobs); 
+
+    for (i = 0; i < nrep/nproc; ++i) {
+      global[rank*nrep/nproc+i] = local[i];
+    }
 
     if (rank == 0) {
-      for (i = 0; i < nobs/nproc; ++i) {
+      for (i = 0; i < nobs; ++i) {
         printf("%d\n", index[i]);
       }
     }
 
+    free(x);
+    free(y);
     free(local);
     free(index);
   }
 
-  for (i = 0; i < nobs; ++i) {
+  for (i = 0; i < nrep; ++i) {
     printf("%g\n", global[i]);
   }
 
