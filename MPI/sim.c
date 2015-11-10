@@ -38,27 +38,31 @@ int main(int argc, char** argv)
 
   double t0 = MPI_Wtime();
 
-  int nproc, rank, i;
-  int nobs = 8;
-  int nrep = 1;
+  int nproc, rank, i, j, k;
+  double a, b;
+  int nobs = 25;
+  int ndim = 5;
+  int nrep = 16;
 
   MPI_Comm_size(MPI_COMM_WORLD, &nproc);
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
   extern char* optarg;
-  const char* optstring = "o:r:";
+  const char* optstring = "o:d:r:";
   int c;
   while ((c = getopt(argc, argv, optstring)) != -1) {
     switch (c) {
     case 'o': nobs = atoi(optarg); break; // number of observations
+    case 'd': ndim = atoi(optarg); break; // number of dimensions
     case 'r': nrep = atoi(optarg); break; // number of repetitions
     }
   }
 
   if (rank == 0) {
-    assert(nobs % nproc == 0);
+    assert(nrep % nproc == 0);
     
     printf("nobs: %d\n", nobs);
+    printf("ndim: %d\n", ndim);
     printf("nrep: %d\n", nrep);
     printf("nproc: %d\n", nproc);
   }
@@ -69,44 +73,64 @@ int main(int argc, char** argv)
 			   3335719306, 4161054083};
   RngStream_SetPackageSeed(seed);
   
-  RngStream RngArray[nproc];
-  for (i = 0; i < nproc; ++i) {
+  RngStream RngArray[nrep];
+  for (i = 0; i < nrep; ++i) {
     RngArray[i] = RngStream_CreateStream(NULL);
   }
 
   //
+  double* x = (double*) malloc(nobs*ndim*nrep/nproc*sizeof(double));
+  double* y = (double*) malloc(nobs*ndim*nrep/nproc*sizeof(double));
+  double* local = (double*) malloc(nrep/nproc*sizeof(double));
+  int* index = (int*) malloc(nobs*sizeof(int));
   double* global;
-  double* local = (double*) malloc(nobs/nproc*sizeof(double));
-  int* index = (int*) malloc(nobs/nproc*sizeof(int));
-  
-  if (rank == 0) {
-    global = (double*) malloc(nobs*sizeof(double));
-  } 
 
-  for (i = 0; i < nobs/nproc; ++i) {
-    local[i] = RngStream_RandNormal(RngArray[rank]);
+  for (i = 0; i < nobs*ndim*nrep/nproc; ++i) {
+    x[i] = RngStream_RandNormal(RngArray[rank]);
   }
 
-  for (i = 0; i < nobs/nproc; ++i) {
+  for (i = 0; i < nobs*ndim*nrep/nproc; ++i) {
+    y[i] = RngStream_RandNormal(RngArray[rank]);
+  }
+
+  for (i = 0; i < nrep/nproc; ++i) {
+    for (j = 0; j < nobs; ++j) {
+      b = 0.0;
+      for (k = 0; k < ndim; ++k) {
+        a = x[i*nobs*ndim+j*ndim+k] - y[i*nobs*ndim+j*ndim+k];
+        b += a * a;
+      }
+      b = sqrt(b);
+      local[i] += b;
+    }
+  }
+
+  for (i = 0; i < nobs; ++i) {
     index[i] = i;
   }
-  RngStream_RandShuffle(RngArray[rank], index, nobs/nproc);
-
-  MPI_Gather(local, nobs/nproc, MPI_DOUBLE, 
-	     global, nobs/nproc, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  RngStream_RandShuffle(RngArray[rank], index, nobs);
 
   if (rank == 0) {
-    for (i = 0; i < nobs/nproc; ++i) {
+    global = (double*) malloc(nrep*sizeof(double));
+  } 
+
+  MPI_Gather(local, nrep/nproc, MPI_DOUBLE, 
+	     global, nrep/nproc, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+  if (rank == 0) {
+    for (i = 0; i < nobs; ++i) {
       printf("%d\n", index[i]);
     }
     
-    for (i = 0; i < nobs; ++i) {
+    for (i = 0; i < nrep; ++i) {
       printf("%g\n", global[i]);
     }
 
     free(global);
   }
   
+  free(x);
+  free(y);
   free(local);
   free(index);
 
