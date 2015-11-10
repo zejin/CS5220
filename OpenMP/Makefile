@@ -17,6 +17,9 @@ OMP_CFLAGS=$(CFLAGS) -fopenmp
 # ===
 # Rules
 
+sim: sim.c RngStream.c
+	$(CC) $(OMP_CFLAGS) $^ -o $@ -lm
+
 foo: foo.c RngStream.c
 	$(CC) $(OMP_CFLAGS) $^ -o $@ -lm
 
