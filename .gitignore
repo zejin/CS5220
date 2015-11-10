@@ -1,4 +1,6 @@
 bar
+foo
+sim
 mpi
 omp
 *.o
