@@ -38,7 +38,7 @@ int main(int argc, char** argv)
 
   double t0 = MPI_Wtime();
 
-  int nproc, rank, i, j, k;
+  int nproc, rank, i, j, n, m;
   double a, b;
   int nobs = 25;
   int ndim = 5;
@@ -73,42 +73,52 @@ int main(int argc, char** argv)
 			   3335719306, 4161054083};
   RngStream_SetPackageSeed(seed);
   
-  RngStream RngArray[nproc];
-  for (i = 0; i < nproc; ++i) {
+  RngStream RngArray[nrep];
+  for (i = 0; i < nrep; ++i) {
     RngArray[i] = RngStream_CreateStream(NULL);
   }
 
   //
-  double* x = (double*) malloc(nobs*ndim*nrep/nproc*sizeof(double));
-  double* y = (double*) malloc(nobs*ndim*nrep/nproc*sizeof(double));
+  double* x = (double*) malloc(nobs*ndim*sizeof(double));
+  double* y = (double*) malloc(nobs*ndim*sizeof(double));
   double* local = (double*) malloc(nrep/nproc*sizeof(double));
   int* index = (int*) malloc(nobs*sizeof(int));
   double* global;
 
-  for (i = 0; i < nobs*ndim*nrep/nproc; ++i) {
-    x[i] = RngStream_RandNormal(RngArray[rank]);
-  }
+  for (n = 0; n < nrep/nproc; ++n) {
 
-  for (i = 0; i < nobs*ndim*nrep/nproc; ++i) {
-    y[i] = RngStream_RandNormal(RngArray[rank]);
-  }
+    for (i = 0; i < nobs*ndim; ++i) {
+      x[i] = RngStream_RandNormal(RngArray[rank*nrep/nproc+n]);
+    }
 
-  for (i = 0; i < nrep/nproc; ++i) {
-    for (j = 0; j < nobs; ++j) {
+    for (i = 0; i < nobs*ndim; ++i) {
+      y[i] = RngStream_RandNormal(RngArray[rank*nrep/nproc+n]);
+    }
+
+    for (i = 0; i < nobs; ++i) {
       b = 0.0;
-      for (k = 0; k < ndim; ++k) {
-        a = x[i*nobs*ndim+j*ndim+k] - y[i*nobs*ndim+j*ndim+k];
+      for (j = 0; j < ndim; ++j) {
+        a = x[i*ndim+j] - y[i*ndim+j];
         b += a * a;
       }
       b = sqrt(b);
-      local[i] += b;
+      local[n] += b;
     }
-  }
 
-  for (i = 0; i < nobs; ++i) {
-    index[i] = i;
+    for (i = 0; i < nobs; ++i) {
+      index[i] = i;
+    }
+    RngStream_RandShuffle(RngArray[rank*nrep/nproc+n], index, nobs);
+
+    //
+
+
+
+
+
+
+
   }
-  RngStream_RandShuffle(RngArray[rank], index, nobs);
 
   if (rank == 0) {
     global = (double*) malloc(nrep*sizeof(double));
