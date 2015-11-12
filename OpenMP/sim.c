@@ -1,6 +1,7 @@
 #include "RngStream.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <getopt.h>
 #include <assert.h>
 #include <math.h>
@@ -30,37 +31,115 @@ void RngStream_RandShuffle(RngStream g, int* index, int n)
   }
 }
 
+// X is a pxn matrix, XX is a nxn matrix
+void Double_Center(int n, int p, double *X, double *XX) {
+  double* row_sum = (double*) calloc(n, sizeof(double));
+  double* col_sum = (double*) calloc(n, sizeof(double));
+  
+  double total_sum = 0.0;
+  double elem, part_sum;
+  int i, j, k;
+
+  for (j = 0; j < n; ++j) {
+    for (i = 0; i < n; ++i) {
+      if (i != j) {
+        part_sum = 0.0;
+
+        //XX[i, j] = |X[i, ] - X[j, ]|
+        for (k = 0; k < p; ++k) {
+          elem = X[i*p+k] - X[j*p+k];
+          part_sum += elem * elem;
+        }
+
+        part_sum = sqrt(part_sum);
+
+        XX[i+j*n] = part_sum;
+        row_sum[i] += part_sum;
+        col_sum[j] += part_sum;
+        total_sum += part_sum;
+      } else {
+        XX[i+j*n] = 0.0;
+      }
+    }
+  }
+
+  for (j = 0; j < n; ++j) {
+    for (i = 0; i < n; ++i) {
+      XX[i+j*n] -= row_sum[i] / n + col_sum[j] / n - total_sum / n / n;
+    }
+  }
+
+  free(row_sum);
+  free(col_sum);
+}
+
+// XX is a nxn matrix, YY is a nxn matrix
+double Inner_Prod(int n, double *XX, double *YY) {
+  double sum = 0.0; 
+  int i, j;
+
+  for (j = 0; j < n; ++j) {
+    for (i = 0; i < n; ++i) {
+      // XX[i, j] * YY[i, j]
+      sum += XX[i+j*n] * YY[i+j*n];
+    }
+  }
+
+  return sum / n / n;
+}
+
+// XX is a nxn matrix, YY is a nxn matrix
+double Inner_Prod_Perm(int n, int *P, double *XX, double *YY) {
+  double sum = 0.0; 
+  int i, j;
+
+  for (j = 0; j < n; ++j) {
+    for (i = 0; i < n; ++i) {
+      // XX[i, j] * YY[P[i], P[j]]
+      sum += XX[i+j*n] * YY[P[i]+P[j]*n];
+    }
+  }
+
+  return sum / n / n;
+}
+
 //
 int main(int argc, char** argv)
 {
   //
   double t0 = omp_get_wtime();
 
-  int rank, i, j, n, m;
-  double a, b;
+  int rank, i, j;
+  int nthr = 8;
   int nobs = 25;
   int ndim = 5;
-  int nrep = 16;
-  int nproc = 8;
+  int nrep = 24;
+  int nperm = 100;
+  double alpha = 0.1;
 
   extern char* optarg;
-  const char* optstring = "o:d:r:p:";
+  const char* optstring = "t:o:d:r:p:a:";
   int c;
   while ((c = getopt(argc, argv, optstring)) != -1) {
     switch (c) {
+    case 't': nthr = atoi(optarg); break; // number of threads
     case 'o': nobs = atoi(optarg); break; // number of observations
     case 'd': ndim = atoi(optarg); break; // number of dimensions
     case 'r': nrep = atoi(optarg); break; // number of repetitions
-    case 'p': nproc = atoi(optarg); break; // number of processors
+    case 'p': nperm = atoi(optarg); break; // number of permutations
+    case 'a': alpha = atof(optarg); break; // significance level
     }
   }
 
-  assert(nrep % nproc == 0);
-
+  assert(nrep % nthr == 0);
+  
+  printf("====================\n");
+  printf("nthr: %d\n", nthr);
   printf("nobs: %d\n", nobs);
   printf("ndim: %d\n", ndim);
   printf("nrep: %d\n", nrep);
-  printf("nproc: %d\n", nproc);
+  printf("nperm: %d\n", nperm);
+  printf("alpha: %g\n", alpha);
 
   //  
   unsigned long seed[6] = {1806547166, 3311292359,  
@@ -74,84 +153,74 @@ int main(int argc, char** argv)
   }
 
   //
-  double* x;
-  double* y;
-  double* local;
   int* index;
-  double* global = (double*) malloc(nrep*sizeof(double));
+  double *x, *y, *xx, *yy; 
+  double stat, stat_perm;
+  int count, local;
+  int global = 0;
 
-  omp_set_num_threads(nproc);
+  omp_set_num_threads(nthr);
 
   #pragma omp parallel default(shared) \
-  private(rank, i, j, n, m, a, b, x, y, local, index) 
+  private(rank, i, j, index, x, y, xx, yy, stat, stat_perm, count, local) \
+  reduction(+:global)
   {
     rank = omp_get_thread_num();
 
-    x = (double*) malloc(nobs*ndim*nrep/nproc*sizeof(double));
-    y = (double*) malloc(nobs*ndim*nrep/nproc*sizeof(double));
-    local = (double*) malloc(nrep/nproc*sizeof(double));
     index = (int*) malloc(nobs*sizeof(int));
+    x = (double*) malloc(nobs*ndim*sizeof(double));
+    y = (double*) malloc(nobs*ndim*sizeof(double));
+    xx = (double*) malloc(nobs*nobs*sizeof(double));
+    yy = (double*) malloc(nobs*nobs*sizeof(double));
+    local = 0;
 
-    for (n = 0; n < nrep/nproc; ++n) {
+    for (i = 0; i < nobs; ++i) {
+      index[i] = i;
+    }
 
+    for (j = 0; j < nrep/nthr; ++j) {
       for (i = 0; i < nobs*ndim; ++i) {
-        x[i] = RngStream_RandNormal(RngArray[rank*nrep/nproc+n]);
+        x[i] = RngStream_RandNormal(RngArray[rank*nrep/nthr+j]);
       }
 
       for (i = 0; i < nobs*ndim; ++i) {
-        y[i] = RngStream_RandNormal(RngArray[rank*nrep/nproc+n]);
+        y[i] = RngStream_RandNormal(RngArray[rank*nrep/nthr+j]);
       }
 
-      for (i = 0; i < nobs; ++i) {
-        b = 0.0;
-        for (j = 0; j < ndim; ++j) {
-          a = x[i*ndim+j] - y[i*ndim+j];
-          b += a * a;
+      Double_Center(nobs, ndim, x, xx);
+      Double_Center(nobs, ndim, y, yy);
+
+      stat = Inner_Prod(nobs, xx, yy);
+      count = 0;
+
+      for (i = 0; i < nperm; ++i) {
+        RngStream_RandShuffle(RngArray[rank*nrep/nthr+j], index, nobs);
+        stat_perm = Inner_Prod_Perm(nobs, index, xx, yy);
+        if (stat_perm > stat) {
+          count += 1;
         }
-        b = sqrt(b);
-        local[n] += b;
       }
 
-      for (i = 0; i < nobs; ++i) {
-        index[i] = i;
-      }
-      RngStream_RandShuffle(RngArray[rank*nrep/nproc+n], index, nobs);
-
-      //
-
-
-
-
-
-
-
+      if ((double) count /nperm < alpha) {
+        local += 1;  
+      }  
     }
 
-    for (i = 0; i < nrep/nproc; ++i) {
-      global[rank*nrep/nproc+i] = local[i];
-    }
+    global += local;
 
-    if (rank == 0) {
-      for (i = 0; i < nobs; ++i) {
-        printf("%d\n", index[i]);
-      }
-    }
-
+    free(index);
     free(x);
     free(y);
-    free(local);
-    free(index);
+    free(xx);
+    free(yy);
   }
-
-  for (i = 0; i < nrep; ++i) {
-    printf("%g\n", global[i]);
-  }
-
-  free(global);
 
   double t1 = omp_get_wtime();
   
+  printf("====================\n");
+  printf("size: %d / %d = %g\n", global, nrep, (double) global / nrep);
   printf("time: %g\n", t1-t0);
+  printf("====================\n");
 
   return 0;
 }

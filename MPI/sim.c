@@ -111,8 +111,7 @@ int main(int argc, char** argv)
 
   double t0 = MPI_Wtime();
 
-  int nthr, rank, i, j, n, m;
-  double a, b;
+  int nthr, rank, i, j;
   int nobs = 25;
   int ndim = 5;
   int nrep = 24;
@@ -172,13 +171,13 @@ int main(int argc, char** argv)
     index[i] = i;
   }
 
-  for (n = 0; n < nrep/nthr; ++n) {
+  for (j = 0; j < nrep/nthr; ++j) {
     for (i = 0; i < nobs*ndim; ++i) {
-      x[i] = RngStream_RandNormal(RngArray[rank*nrep/nthr+n]);
+      x[i] = RngStream_RandNormal(RngArray[rank*nrep/nthr+j]);
     }
 
     for (i = 0; i < nobs*ndim; ++i) {
-      y[i] = RngStream_RandNormal(RngArray[rank*nrep/nthr+n]);
+      y[i] = RngStream_RandNormal(RngArray[rank*nrep/nthr+j]);
     }
 
     Double_Center(nobs, ndim, x, xx);
@@ -188,25 +187,20 @@ int main(int argc, char** argv)
     count = 0;
 
     for (i = 0; i < nperm; ++i) {
-      RngStream_RandShuffle(RngArray[rank*nrep/nthr+n], index, nobs);
+      RngStream_RandShuffle(RngArray[rank*nrep/nthr+j], index, nobs);
       stat_perm = Inner_Prod_Perm(nobs, index, xx, yy);
       if (stat_perm > stat) {
         count += 1;
       }
     }
 
-    if ((double) count /nperm < alpha) {
+    if ((double) count / nperm < alpha) {
       local += 1;  
     }  
   }
 
   MPI_Reduce(&local, &global, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
-  if (rank == 0) {
-    printf("====================\n");
-    printf("size: %d / %d = %g\n", global, nrep, (double) global / nrep);
-  }
-  
   free(index);
   free(x);
   free(y);
@@ -216,6 +210,8 @@ int main(int argc, char** argv)
   double t1 = MPI_Wtime();
 
   if (rank == 0) {
+    printf("====================\n");
+    printf("size: %d / %d = %g\n", global, nrep, (double) global / nrep);
     printf("time: %g\n", t1-t0);
     printf("====================\n");
   }
