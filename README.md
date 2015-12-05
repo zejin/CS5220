@@ -72,7 +72,7 @@ generation is the **SPRNG** package of Mascagni and Srinivasan (2000). In contra
 via parametrization of a single type of generator.
 
 For example, one of the package’s
-featured generators is a multiplicative lagged Fibonacci generator whose states fall into 2^1007 different equivalence classes of generators (each of period 281) that provide
+featured generators is a multiplicative lagged Fibonacci generator whose states fall into 2^1007 different equivalence classes of generators (each of period 2^81) that provide
 the different streams.
 
 L’Ecuyer et al. (2001) in reference to the **SPRNG** package
