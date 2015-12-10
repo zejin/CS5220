@@ -1,6 +1,5 @@
 dyn.load('bar.so')
 
-a <- rnorm(10)
-b <- rnorm(10)
+a <- rnorm(8)
 
-.Call('dotProd', a, b)
+.Call('noise', a)

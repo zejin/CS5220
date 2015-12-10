@@ -1,10 +1,7 @@
 # ===
 # Rules
 
-run: driver.c RngStream.c
-	R CMD SHLIB $^
-
-bar: bar.c
+bar: bar.c RngStream.c
 	R CMD SHLIB $^
 
 .PHONY: clean
