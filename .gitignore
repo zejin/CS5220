@@ -5,3 +5,4 @@ mpi
 omp
 *.o
 *.so
+.RData
