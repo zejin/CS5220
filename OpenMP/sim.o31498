@@ -1,0 +1,121 @@
+====================
+nthr: 8
+nobs: 25
+ndim: 5
+nrep: 10000
+nperm: 400
+alpha: 0.1
+====================
+size: 966 / 10000 = 0.0966
+time: 0.758724
+====================
+====================
+nthr: 8
+nobs: 30
+ndim: 5
+nrep: 10000
+nperm: 366
+alpha: 0.1
+====================
+size: 987 / 10000 = 0.0987
+time: 1.23405
+====================
+====================
+nthr: 8
+nobs: 35
+ndim: 5
+nrep: 10000
+nperm: 342
+alpha: 0.1
+====================
+size: 1006 / 10000 = 0.1006
+time: 0.91306
+====================
+====================
+nthr: 8
+nobs: 50
+ndim: 5
+nrep: 10000
+nperm: 300
+alpha: 0.1
+====================
+size: 1034 / 10000 = 0.1034
+time: 1.28965
+====================
+====================
+nthr: 8
+nobs: 70
+ndim: 5
+nrep: 10000
+nperm: 271
+alpha: 0.1
+====================
+size: 1046 / 10000 = 0.1046
+time: 2.08416
+====================
+====================
+nthr: 8
+nobs: 100
+ndim: 5
+nrep: 10000
+nperm: 250
+alpha: 0.1
+====================
+size: 1009 / 10000 = 0.1009
+time: 3.4408
+====================
+amplxe: Collection started. To stop the collection, either press CTRL-C or enter from another console window: amplxe-cl -r /home/zj58/cs5220/OpenMP/r000ah -command stop.
+amplxe: Warning: To enable hardware event-base[d] sampling, VTune Amplifier has disabled the NMI watchdog timer. The watchdog timer will be re-enabled after collection completes.
+====================
+nthr: 8
+nobs: 100
+ndim: 5
+nrep: 10000
+nperm: 400
+alpha: 0.1
+====================
+size: 1033 / 10000 = 0.1033
+time: 5.76234
+====================
+amplxe: Collection stopped.
+amplxe: Using result path `/home/zj58/cs5220/OpenMP/r000ah'
+amplxe: Executing actions  0 %                                                 amplxe: Executing actions  0 % Finalizing results                              amplxe: Executing actions  0 % Finalizing the result                           amplxe: Executing actions  0 % Clearing the database                           amplxe: Executing actions  8 % Clearing the database                           amplxe: Executing actions  8 % Loading 'systemcollector-en-cs-totient-02.coecisamplxe: Executing actions  8 % Loading 'tbs1133299995.tb6' file                amplxe: Executing actions  8 % Loading 'userapicollector-56182-ece94d7a.trace' amplxe: Executing actions  8 % Updating precomputed scalar metrics             amplxe: Executing actions  9 % Updating precomputed scalar metrics             amplxe: Executing actions  9 % Processing profile metrics and debug informationamplxe: Executing actions 16 % Processing profile metrics and debug informationamplxe: Executing actions 16 % Setting data model parameters                   amplxe: Executing actions 16 % Resolving module symbols                        amplxe: Executing actions 16 % Resolving information for dangling locations    amplxe: Executing actions 16 % Resolving information for `ld-2.12.so'          amplxe: Executing actions 16 % Resolving information for `sim'                 
+amplxe: Warning: Cannot locate debugging symbols for file `/lib64/ld-2.12.so'.
+amplxe: Executing actions 16 % Resolving information for `libc-2.12.so'        amplxe: Executing actions 16 % Resolving information for `libiomp5.so'         
+amplxe: Warning: Cannot locate debugging symbols for file `/lib64/libc-2.12.so'.
+amplxe: Executing actions 17 % Resolving information for `libiomp5.so'         amplxe: Executing actions 18 % Resolving information for `libiomp5.so'         amplxe: Executing actions 19 % Resolving information for `libiomp5.so'         amplxe: Executing actions 20 % Resolving information for `libiomp5.so'         amplxe: Executing actions 21 % Resolving information for `libiomp5.so'         amplxe: Executing actions 22 % Resolving information for `libiomp5.so'         amplxe: Executing actions 23 % Resolving information for `libiomp5.so'         amplxe: Executing actions 24 % Resolving information for `libiomp5.so'         amplxe: Executing actions 24 % Processing profile metrics and debug informationamplxe: Executing actions 25 % Processing profile metrics and debug informationamplxe: Executing actions 26 % Processing profile metrics and debug informationamplxe: Executing actions 28 % Processing profile metrics and debug informationamplxe: Executing actions 29 % Processing profile metrics and debug informationamplxe: Executing actions 30 % Processing profile metrics and debug informationamplxe: Executing actions 31 % Processing profile metrics and debug informationamplxe: Executing actions 32 % Processing profile metrics and debug informationamplxe: Executing actions 32 % Setting data model parameters                   amplxe: Executing actions 33 % Setting data model parameters                   amplxe: Executing actions 33 % Precomputing frequently used data               amplxe: Executing actions 34 % Precomputing frequently used data               amplxe: Executing actions 35 % Precomputing frequently used data               amplxe: Executing actions 36 % Precomputing frequently used data               amplxe: Executing actions 37 % Precomputing frequently used data               amplxe: Executing actions 38 % Precomputing frequently used data               amplxe: Executing actions 39 % Precomputing frequently used data               amplxe: Executing actions 39 % Updating precomputed scalar metrics             amplxe: Executing actions 41 % Updating precomputed scalar metrics             amplxe: Executing actions 41 % Discarding redundant overtime data              amplxe: Executing actions 43 % Discarding redundant overtime data              amplxe: Executing actions 43 % Saving the result                               amplxe: Executing actions 45 % Saving the result                               amplxe: Executing actions 47 % Saving the result                               amplxe: Executing actions 50 % Saving the result                               amplxe: Executing actions 50 % Generating a report                             amplxe: Executing actions 50 % Setting knob values                             amplxe: Executing actions 50 % Generating a report                             amplxe: Executing actions 75 % Generating a report                             amplxe: Executing actions 100 % Generating a report                            amplxe: Executing actions 100 % done                                           
+
+Collection and Platform Info
+----------------------------
+Parameter                 r000ah                                                                          
+------------------------  --------------------------------------------------------------------------------
+Application Command Line  ./sim "-o" "100" "-d" "5" "-r" "10000" "-p" "400" "-a" "0.1"                    
+User Name                 zj58                                                                            
+Operating System          2.6.32-573.3.1.el6.x86_64 Red Hat Enterprise Linux Server release 6.7 (Santiago)
+Computer Name             en-cs-totient-02.coecis.cornell.edu                                             
+Result Size               56028615                                                                        
+Collection start time     19:27:07 12/12/2015 UTC                                                         
+Collection stop time      19:27:13 12/12/2015 UTC                                                         
+
+CPU
+---
+Parameter          r000ah                             
+-----------------  -----------------------------------
+Name               Intel(R) Xeon(R) E5/E7 v3 processor
+Frequency          2399999398                         
+Logical CPU Count  24                                 
+
+Summary
+-------
+Elapsed Time:       5.766 
+CPU Time:           44.947
+Average CPU Usage:  7.710 
+CPI Rate:           0.424 
+
+Event summary
+-------------
+Hardware Event Type       Hardware Event Count:Self  Hardware Event Sample Count:Self  Events Per Sample
+------------------------  -------------------------  --------------------------------  -----------------
+CPU_CLK_UNHALTED.THREAD                116856000000                             48690  2400000          
+CPU_CLK_UNHALTED.REF_TSC               107872800000                             44947  2400000          
+INST_RETIRED.ANY                       275820000000                            114925  2400000          
