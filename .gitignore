@@ -6,3 +6,4 @@ omp
 *.o
 *.so
 .RData
+r000ah
