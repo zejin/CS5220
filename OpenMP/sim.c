@@ -201,7 +201,7 @@ int main(int argc, char** argv)
         }
       }
 
-      if ((double) count /nperm < alpha) {
+      if ((double) count / nperm < alpha) {
         local += 1;  
       }  
     }
