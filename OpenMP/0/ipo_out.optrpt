@@ -4,11 +4,11 @@ Begin optimization report for: main(int, char **)
     Report from: Vector optimizations [vec]
 
 
-LOOP BEGIN at RngStream.c(277,4) inlined into sim.c(148,3)
+LOOP BEGIN at RngStream.c(277,4) inlined into sim.c(143,3)
    remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
 LOOP END
 
-LOOP BEGIN at RngStream.c(382,4) inlined into sim.c(148,3)
+LOOP BEGIN at RngStream.c(382,4) inlined into sim.c(143,3)
    remark #15388: vectorization support: reference nextSeed has aligned access   [ RngStream.c(383,7) ]
    remark #15388: vectorization support: reference seed has aligned access   [ RngStream.c(383,7) ]
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
@@ -27,12 +27,12 @@ LOOP BEGIN at RngStream.c(382,4) inlined into sim.c(148,3)
    remark #15488: --- end vector loop cost summary ---
 LOOP END
 
-LOOP BEGIN at sim.c(177,5)
+LOOP BEGIN at sim.c(164,3)
 <Peeled>
 LOOP END
 
-LOOP BEGIN at sim.c(177,5)
-   remark #15388: vectorization support: reference index has aligned access   [ sim.c(178,7) ]
+LOOP BEGIN at sim.c(164,3)
+   remark #15388: vectorization support: reference index has aligned access   [ sim.c(165,5) ]
    remark #15300: LOOP WAS VECTORIZED
    remark #15442: entire loop may be executed in remainder
    remark #15449: unmasked aligned unit stride stores: 1 
@@ -44,23 +44,23 @@ LOOP BEGIN at sim.c(177,5)
    remark #15488: --- end vector loop cost summary ---
 LOOP END
 
-LOOP BEGIN at sim.c(177,5)
+LOOP BEGIN at sim.c(164,3)
 <Remainder>
 LOOP END
 
-LOOP BEGIN at sim.c(43,3) inlined into sim.c(190,7)
+LOOP BEGIN at sim.c(43,3) inlined into sim.c(177,5)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at sim.c(44,5) inlined into sim.c(190,7)
+   LOOP BEGIN at sim.c(44,5) inlined into sim.c(177,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at sim.c(49,9) inlined into sim.c(190,7)
+      LOOP BEGIN at sim.c(49,9) inlined into sim.c(177,5)
       <Peeled>
       LOOP END
 
-      LOOP BEGIN at sim.c(49,9) inlined into sim.c(190,7)
-         remark #15388: vectorization support: reference x has aligned access   [ sim.c(50,11) ]
-         remark #15388: vectorization support: reference x has aligned access   [ sim.c(50,11) ]
+      LOOP BEGIN at sim.c(49,9) inlined into sim.c(177,5)
+         remark #15388: vectorization support: reference X_778 has aligned access   [ sim.c(50,11) ]
+         remark #15388: vectorization support: reference X_778 has aligned access   [ sim.c(50,11) ]
          remark #15399: vectorization support: unroll factor set to 4
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
@@ -74,34 +74,34 @@ LOOP BEGIN at sim.c(43,3) inlined into sim.c(190,7)
          remark #15488: --- end vector loop cost summary ---
       LOOP END
 
-      LOOP BEGIN at sim.c(49,9) inlined into sim.c(190,7)
+      LOOP BEGIN at sim.c(49,9) inlined into sim.c(177,5)
       <Alternate Alignment Vectorized Loop>
       LOOP END
 
-      LOOP BEGIN at sim.c(49,9) inlined into sim.c(190,7)
+      LOOP BEGIN at sim.c(49,9) inlined into sim.c(177,5)
       <Remainder>
-         remark #15389: vectorization support: reference x has unaligned access   [ sim.c(50,11) ]
-         remark #15388: vectorization support: reference x has aligned access   [ sim.c(50,11) ]
+         remark #15389: vectorization support: reference X_778 has unaligned access   [ sim.c(50,11) ]
+         remark #15388: vectorization support: reference X_778 has aligned access   [ sim.c(50,11) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15301: REMAINDER LOOP WAS VECTORIZED
       LOOP END
 
-      LOOP BEGIN at sim.c(49,9) inlined into sim.c(190,7)
+      LOOP BEGIN at sim.c(49,9) inlined into sim.c(177,5)
       <Remainder>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at sim.c(66,3) inlined into sim.c(190,7)
+LOOP BEGIN at sim.c(66,3) inlined into sim.c(177,5)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at sim.c(67,5) inlined into sim.c(190,7)
+   LOOP BEGIN at sim.c(67,5) inlined into sim.c(177,5)
    <Peeled>
    LOOP END
 
-   LOOP BEGIN at sim.c(67,5) inlined into sim.c(190,7)
-      remark #15388: vectorization support: reference xx has aligned access   [ sim.c(68,7) ]
-      remark #15388: vectorization support: reference xx has aligned access   [ sim.c(68,7) ]
+   LOOP BEGIN at sim.c(67,5) inlined into sim.c(177,5)
+      remark #15388: vectorization support: reference XX_778 has aligned access   [ sim.c(68,7) ]
+      remark #15388: vectorization support: reference XX_778 has aligned access   [ sim.c(68,7) ]
       remark #15388: vectorization support: reference row_sum.778 has aligned access   [ sim.c(68,7) ]
       remark #15399: vectorization support: unroll factor set to 4
       remark #15300: LOOP WAS VECTORIZED
@@ -117,37 +117,37 @@ LOOP BEGIN at sim.c(66,3) inlined into sim.c(190,7)
       remark #15488: --- end vector loop cost summary ---
    LOOP END
 
-   LOOP BEGIN at sim.c(67,5) inlined into sim.c(190,7)
+   LOOP BEGIN at sim.c(67,5) inlined into sim.c(177,5)
    <Alternate Alignment Vectorized Loop>
    LOOP END
 
-   LOOP BEGIN at sim.c(67,5) inlined into sim.c(190,7)
+   LOOP BEGIN at sim.c(67,5) inlined into sim.c(177,5)
    <Remainder>
-      remark #15388: vectorization support: reference xx has aligned access   [ sim.c(68,7) ]
-      remark #15388: vectorization support: reference xx has aligned access   [ sim.c(68,7) ]
+      remark #15388: vectorization support: reference XX_778 has aligned access   [ sim.c(68,7) ]
+      remark #15388: vectorization support: reference XX_778 has aligned access   [ sim.c(68,7) ]
       remark #15389: vectorization support: reference row_sum.778 has unaligned access   [ sim.c(68,7) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15301: REMAINDER LOOP WAS VECTORIZED
    LOOP END
 
-   LOOP BEGIN at sim.c(67,5) inlined into sim.c(190,7)
+   LOOP BEGIN at sim.c(67,5) inlined into sim.c(177,5)
    <Remainder>
    LOOP END
 LOOP END
 
-LOOP BEGIN at sim.c(43,3) inlined into sim.c(191,7)
+LOOP BEGIN at sim.c(43,3) inlined into sim.c(178,5)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at sim.c(44,5) inlined into sim.c(191,7)
+   LOOP BEGIN at sim.c(44,5) inlined into sim.c(178,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at sim.c(49,9) inlined into sim.c(191,7)
+      LOOP BEGIN at sim.c(49,9) inlined into sim.c(178,5)
       <Peeled>
       LOOP END
 
-      LOOP BEGIN at sim.c(49,9) inlined into sim.c(191,7)
-         remark #15388: vectorization support: reference y has aligned access   [ sim.c(50,11) ]
-         remark #15388: vectorization support: reference y has aligned access   [ sim.c(50,11) ]
+      LOOP BEGIN at sim.c(49,9) inlined into sim.c(178,5)
+         remark #15388: vectorization support: reference X_778 has aligned access   [ sim.c(50,11) ]
+         remark #15388: vectorization support: reference X_778 has aligned access   [ sim.c(50,11) ]
          remark #15399: vectorization support: unroll factor set to 4
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
@@ -161,34 +161,34 @@ LOOP BEGIN at sim.c(43,3) inlined into sim.c(191,7)
          remark #15488: --- end vector loop cost summary ---
       LOOP END
 
-      LOOP BEGIN at sim.c(49,9) inlined into sim.c(191,7)
+      LOOP BEGIN at sim.c(49,9) inlined into sim.c(178,5)
       <Alternate Alignment Vectorized Loop>
       LOOP END
 
-      LOOP BEGIN at sim.c(49,9) inlined into sim.c(191,7)
+      LOOP BEGIN at sim.c(49,9) inlined into sim.c(178,5)
       <Remainder>
-         remark #15389: vectorization support: reference y has unaligned access   [ sim.c(50,11) ]
-         remark #15388: vectorization support: reference y has aligned access   [ sim.c(50,11) ]
+         remark #15389: vectorization support: reference X_778 has unaligned access   [ sim.c(50,11) ]
+         remark #15388: vectorization support: reference X_778 has aligned access   [ sim.c(50,11) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15301: REMAINDER LOOP WAS VECTORIZED
       LOOP END
 
-      LOOP BEGIN at sim.c(49,9) inlined into sim.c(191,7)
+      LOOP BEGIN at sim.c(49,9) inlined into sim.c(178,5)
       <Remainder>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at sim.c(66,3) inlined into sim.c(191,7)
+LOOP BEGIN at sim.c(66,3) inlined into sim.c(178,5)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at sim.c(67,5) inlined into sim.c(191,7)
+   LOOP BEGIN at sim.c(67,5) inlined into sim.c(178,5)
    <Peeled>
    LOOP END
 
-   LOOP BEGIN at sim.c(67,5) inlined into sim.c(191,7)
-      remark #15388: vectorization support: reference yy has aligned access   [ sim.c(68,7) ]
-      remark #15388: vectorization support: reference yy has aligned access   [ sim.c(68,7) ]
+   LOOP BEGIN at sim.c(67,5) inlined into sim.c(178,5)
+      remark #15388: vectorization support: reference XX_778 has aligned access   [ sim.c(68,7) ]
+      remark #15388: vectorization support: reference XX_778 has aligned access   [ sim.c(68,7) ]
       remark #15388: vectorization support: reference row_sum.778 has aligned access   [ sim.c(68,7) ]
       remark #15399: vectorization support: unroll factor set to 4
       remark #15300: LOOP WAS VECTORIZED
@@ -204,34 +204,34 @@ LOOP BEGIN at sim.c(66,3) inlined into sim.c(191,7)
       remark #15488: --- end vector loop cost summary ---
    LOOP END
 
-   LOOP BEGIN at sim.c(67,5) inlined into sim.c(191,7)
+   LOOP BEGIN at sim.c(67,5) inlined into sim.c(178,5)
    <Alternate Alignment Vectorized Loop>
    LOOP END
 
-   LOOP BEGIN at sim.c(67,5) inlined into sim.c(191,7)
+   LOOP BEGIN at sim.c(67,5) inlined into sim.c(178,5)
    <Remainder>
-      remark #15388: vectorization support: reference yy has aligned access   [ sim.c(68,7) ]
-      remark #15388: vectorization support: reference yy has aligned access   [ sim.c(68,7) ]
+      remark #15388: vectorization support: reference XX_778 has aligned access   [ sim.c(68,7) ]
+      remark #15388: vectorization support: reference XX_778 has aligned access   [ sim.c(68,7) ]
       remark #15389: vectorization support: reference row_sum.778 has unaligned access   [ sim.c(68,7) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15301: REMAINDER LOOP WAS VECTORIZED
    LOOP END
 
-   LOOP BEGIN at sim.c(67,5) inlined into sim.c(191,7)
+   LOOP BEGIN at sim.c(67,5) inlined into sim.c(178,5)
    <Remainder>
    LOOP END
 LOOP END
 
-LOOP BEGIN at sim.c(81,3) inlined into sim.c(193,14)
+LOOP BEGIN at sim.c(81,3) inlined into sim.c(180,12)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at sim.c(82,5) inlined into sim.c(193,14)
+   LOOP BEGIN at sim.c(82,5) inlined into sim.c(180,12)
    <Peeled>
    LOOP END
 
-   LOOP BEGIN at sim.c(82,5) inlined into sim.c(193,14)
-      remark #15388: vectorization support: reference xx has aligned access   [ sim.c(84,7) ]
-      remark #15388: vectorization support: reference yy has aligned access   [ sim.c(84,7) ]
+   LOOP BEGIN at sim.c(82,5) inlined into sim.c(180,12)
+      remark #15388: vectorization support: reference XX_792 has aligned access   [ sim.c(84,7) ]
+      remark #15388: vectorization support: reference YY_792 has aligned access   [ sim.c(84,7) ]
       remark #15399: vectorization support: unroll factor set to 4
       remark #15300: LOOP WAS VECTORIZED
       remark #15442: entire loop may be executed in remainder
@@ -245,33 +245,33 @@ LOOP BEGIN at sim.c(81,3) inlined into sim.c(193,14)
       remark #15488: --- end vector loop cost summary ---
    LOOP END
 
-   LOOP BEGIN at sim.c(82,5) inlined into sim.c(193,14)
+   LOOP BEGIN at sim.c(82,5) inlined into sim.c(180,12)
    <Alternate Alignment Vectorized Loop>
    LOOP END
 
-   LOOP BEGIN at sim.c(82,5) inlined into sim.c(193,14)
+   LOOP BEGIN at sim.c(82,5) inlined into sim.c(180,12)
    <Remainder>
-      remark #15389: vectorization support: reference xx has unaligned access   [ sim.c(84,7) ]
-      remark #15388: vectorization support: reference yy has aligned access   [ sim.c(84,7) ]
+      remark #15389: vectorization support: reference XX_792 has unaligned access   [ sim.c(84,7) ]
+      remark #15388: vectorization support: reference YY_792 has aligned access   [ sim.c(84,7) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15301: REMAINDER LOOP WAS VECTORIZED
    LOOP END
 
-   LOOP BEGIN at sim.c(82,5) inlined into sim.c(193,14)
+   LOOP BEGIN at sim.c(82,5) inlined into sim.c(180,12)
    <Remainder>
    LOOP END
 LOOP END
 
-LOOP BEGIN at sim.c(96,3) inlined into sim.c(198,21)
+LOOP BEGIN at sim.c(96,3) inlined into sim.c(185,19)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at sim.c(97,5) inlined into sim.c(198,21)
+   LOOP BEGIN at sim.c(97,5) inlined into sim.c(185,19)
    <Peeled>
    LOOP END
 
-   LOOP BEGIN at sim.c(97,5) inlined into sim.c(198,21)
-      remark #15388: vectorization support: reference xx has aligned access   [ sim.c(99,7) ]
-      remark #15389: vectorization support: reference index has unaligned access   [ sim.c(99,7) ]
+   LOOP BEGIN at sim.c(97,5) inlined into sim.c(185,19)
+      remark #15388: vectorization support: reference XX_797 has aligned access   [ sim.c(99,7) ]
+      remark #15389: vectorization support: reference P_797 has unaligned access   [ sim.c(99,7) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15399: vectorization support: unroll factor set to 4
       remark #15300: LOOP WAS VECTORIZED
@@ -288,15 +288,15 @@ LOOP BEGIN at sim.c(96,3) inlined into sim.c(198,21)
       remark #15488: --- end vector loop cost summary ---
    LOOP END
 
-   LOOP BEGIN at sim.c(97,5) inlined into sim.c(198,21)
+   LOOP BEGIN at sim.c(97,5) inlined into sim.c(185,19)
    <Remainder>
-      remark #15388: vectorization support: reference xx has aligned access   [ sim.c(99,7) ]
-      remark #15389: vectorization support: reference index has unaligned access   [ sim.c(99,7) ]
+      remark #15388: vectorization support: reference XX_797 has aligned access   [ sim.c(99,7) ]
+      remark #15389: vectorization support: reference P_797 has unaligned access   [ sim.c(99,7) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15301: REMAINDER LOOP WAS VECTORIZED
    LOOP END
 
-   LOOP BEGIN at sim.c(97,5) inlined into sim.c(198,21)
+   LOOP BEGIN at sim.c(97,5) inlined into sim.c(185,19)
    <Remainder>
    LOOP END
 LOOP END
@@ -305,33 +305,33 @@ LOOP END
 Non-optimizable loops:
 
 
-LOOP BEGIN at sim.c(123,3)
-   remark #15535: loop was not vectorized: loop contains switch statement. Consider using if-else statement.   [ sim.c(124,5) ]
+LOOP BEGIN at sim.c(122,3)
+   remark #15535: loop was not vectorized: loop contains switch statement. Consider using if-else statement.   [ sim.c(123,5) ]
 LOOP END
 
-LOOP BEGIN at RngStream.c(269,4) inlined into sim.c(148,3)
+LOOP BEGIN at RngStream.c(269,4) inlined into sim.c(143,3)
    remark #15341: loop was not vectorized: nonstandard loop is not a vectorization candidate
 LOOP END
 
-LOOP BEGIN at sim.c(151,3)
-   remark #15543: loop was not vectorized: loop with function call not considered an optimization candidate.   [ sim.c(152,19) ]
+LOOP BEGIN at sim.c(146,3)
+   remark #15543: loop was not vectorized: loop with function call not considered an optimization candidate.   [ sim.c(147,19) ]
 LOOP END
 
-LOOP BEGIN at sim.c(181,5)
+LOOP BEGIN at sim.c(168,3)
    remark #15543: loop was not vectorized: loop with function call not considered an optimization candidate.   [ sim.c(15,15) ]
 
-   LOOP BEGIN at sim.c(182,7)
+   LOOP BEGIN at sim.c(169,5)
       remark #15543: loop was not vectorized: loop with function call not considered an optimization candidate.   [ sim.c(15,15) ]
    LOOP END
 
-   LOOP BEGIN at sim.c(186,7)
+   LOOP BEGIN at sim.c(173,5)
       remark #15543: loop was not vectorized: loop with function call not considered an optimization candidate.   [ sim.c(15,15) ]
    LOOP END
 
-   LOOP BEGIN at sim.c(196,7)
+   LOOP BEGIN at sim.c(183,5)
       remark #15543: loop was not vectorized: loop with function call not considered an optimization candidate.   [ RngStream.c(517,38) ]
 
-      LOOP BEGIN at sim.c(25,3) inlined into sim.c(197,9)
+      LOOP BEGIN at sim.c(25,3) inlined into sim.c(184,7)
          remark #15543: loop was not vectorized: loop with function call not considered an optimization candidate.   [ RngStream.c(517,38) ]
       LOOP END
    LOOP END

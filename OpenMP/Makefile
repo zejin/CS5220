@@ -1,28 +1,27 @@
 # ===
 # Compilers
 
-CC=icc
-MPICC=mpiicc
+CC=gcc
+MPICC=mpicc
 
 # ===
 # Flags
 
 CFLAGS=-std=c99 -g 
-OPTFLAGS=-O3 -no-prec-div -xcore-avx2 -ipo \
-	 -qopt-report=5 -qopt-report-phase=vec
+OPTFLAGS=-O3 -march=native
 CFLAGS+=$(OPTFLAGS)
 
 MPI_CFLAGS=$(CFLAGS)
-OMP_CFLAGS=$(CFLAGS) -openmp
+OMP_CFLAGS=$(CFLAGS) -fopenmp
 
 # ===
 # Rules
 
 sim: sim.c RngStream.c
-	$(CC) $(OMP_CFLAGS) $^ -o $@
+	$(CC) $(OMP_CFLAGS) $^ -o $@ -lm
 
 foo: foo.c RngStream.c
-	$(CC) $(OMP_CFLAGS) $^ -o $@
+	$(CC) $(OMP_CFLAGS) $^ -o $@ -lm
 
 bar: bar.c RngStream.c
 	$(CC) $(OMP_CFLAGS) $^ -o $@

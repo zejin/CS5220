@@ -19,7 +19,7 @@ Warning: Ignoring called function instructions
 Warning: Detected a function call instruction:
 Warning: Ignoring called function instructions
 Info: Assuming lines 67 and 68 correspond to the same source loop
-Info: Assuming lines 183 and 187 correspond to the same source loop
+Info: Assuming lines 170 and 174 correspond to the same source loop
 Info: Assuming lines 82 and 84 correspond to the same source loop
 Section 1: Function: main
 =========================
@@ -32,24 +32,24 @@ Section 1.1: Source loop ending at line 51
 Composition and unrolling
 -------------------------
 It is composed of the following loops [ID (first-last source line)]:
- - 26 (49-51)
  - 27 (49-51)
  - 28 (49-51)
  - 29 (49-51)
  - 30 (49-51)
- - 41 (49-51)
+ - 31 (49-51)
  - 42 (49-51)
  - 43 (49-51)
  - 44 (49-51)
  - 45 (49-51)
+ - 46 (49-51)
 and is unrolled by 8 (including vectorization).
 
 The following loops are considered as:
- - unrolled and/or vectorized: 28, 29, 43, 44
- - peel or tail: 26, 30, 41, 45
-The analysis will be displayed for the unrolled and/or vectorized loops: 28, 29, 43, 44
+ - unrolled and/or vectorized: 29, 30, 44, 45
+ - peel or tail: 27, 31, 42, 46
+The analysis will be displayed for the unrolled and/or vectorized loops: 29, 30, 44, 45
 
-Section 1.1.1: Binary (unrolled and/or vectorized) loop #28
+Section 1.1.1: Binary (unrolled and/or vectorized) loop #29
 ===========================================================
 
 Type of elements and instruction set
@@ -99,7 +99,7 @@ Try to reduce the number of FP add instructions.
 By removing all these bottlenecks, you can lower the cost of an iteration from 8.00 to 5.50 cycles (1.45x speedup).
 
 
-Section 1.1.2: Binary (unrolled and/or vectorized) loop #29
+Section 1.1.2: Binary (unrolled and/or vectorized) loop #30
 ===========================================================
 
 Type of elements and instruction set
@@ -151,7 +151,7 @@ Try to reduce the number of FP add instructions.
 By removing all these bottlenecks, you can lower the cost of an iteration from 8.00 to 7.50 cycles (1.07x speedup).
 
 
-Section 1.1.3: Binary (unrolled and/or vectorized) loop #43
+Section 1.1.3: Binary (unrolled and/or vectorized) loop #44
 ===========================================================
 
 Type of elements and instruction set
@@ -201,7 +201,7 @@ Try to reduce the number of FP add instructions.
 By removing all these bottlenecks, you can lower the cost of an iteration from 8.00 to 5.50 cycles (1.45x speedup).
 
 
-Section 1.1.4: Binary (unrolled and/or vectorized) loop #44
+Section 1.1.4: Binary (unrolled and/or vectorized) loop #45
 ===========================================================
 
 Type of elements and instruction set
@@ -258,20 +258,20 @@ Section 1.2: Source loop ending at line 67
 Composition and unrolling
 -------------------------
 It is composed of the following loops [ID (first-last source line)]:
+ - 18 (67-68)
  - 19 (67-68)
- - 20 (67-68)
+ - 21 (67-68)
  - 22 (67-68)
  - 23 (67-68)
- - 24 (67-68)
- - 25 (67-67)
+ - 24 (67-67)
+ - 33 (67-68)
  - 34 (67-68)
- - 35 (67-68)
+ - 36 (67-68)
  - 37 (67-68)
  - 38 (67-68)
- - 39 (67-68)
- - 40 (67-67)
+ - 39 (67-67)
 and is multi-versionned but not unrolled (including vectorization).
-The analysis will be displayed for the first found loop: 19
+The analysis will be displayed for the first found loop: 18
 
 Type of elements and instruction set
 ------------------------------------
@@ -325,14 +325,14 @@ Section 1.3: Source loop ending at line 82
 Composition and unrolling
 -------------------------
 It is composed of the following loops [ID (first-last source line)]:
- - 9 (82-84)
  - 10 (82-84)
- - 12 (82-84)
+ - 11 (82-84)
  - 13 (82-84)
  - 14 (82-84)
- - 15 (82-82)
+ - 15 (82-84)
+ - 16 (82-82)
 and is multi-versionned but not unrolled (including vectorization).
-The analysis will be displayed for the first found loop: 9
+The analysis will be displayed for the first found loop: 10
 
 Type of elements and instruction set
 ------------------------------------
@@ -379,18 +379,18 @@ Section 1.4: Source loop ending at line 99
 Composition and unrolling
 -------------------------
 It is composed of the following loops [ID (first-last source line)]:
- - 3 (97-99)
  - 4 (97-99)
  - 5 (97-99)
  - 6 (97-99)
+ - 7 (97-99)
 and is unrolled by 8 (including vectorization).
 
 The following loops are considered as:
- - unrolled and/or vectorized: 5
- - peel or tail: 3, 6
-The analysis will be displayed for the unrolled and/or vectorized loops: 5
+ - unrolled and/or vectorized: 6
+ - peel or tail: 4, 7
+The analysis will be displayed for the unrolled and/or vectorized loops: 6
 
-Section 1.4.1: Binary (unrolled and/or vectorized) loop #5
+Section 1.4.1: Binary (unrolled and/or vectorized) loop #6
 ==========================================================
 
 Type of elements and instruction set
@@ -436,7 +436,7 @@ Bottlenecks
 The ROB-read stage is a bottleneck.
 By removing all these bottlenecks, you can lower the cost of an iteration from 8.50 to 6.50 cycles (1.31x speedup).
 
-Section 1.5: Source loop ending at line 152
+Section 1.5: Source loop ending at line 147
 ===========================================
 
 Composition and unrolling
@@ -479,23 +479,23 @@ Bottlenecks
 -----------
 By removing all these bottlenecks, you can lower the cost of an iteration from 2.00 to 0.25 cycles (8.00x speedup).
 
-Section 1.6: Source loop ending at line 178
+Section 1.6: Source loop ending at line 165
 ===========================================
 
 Composition and unrolling
 -------------------------
 It is composed of the following loops [ID (first-last source line)]:
- - 48 (177-178)
- - 49 (177-178)
- - 50 (177-178)
+ - 49 (164-165)
+ - 50 (164-165)
+ - 51 (164-165)
 and is unrolled by 4 (including vectorization).
 
 The following loops are considered as:
- - unrolled and/or vectorized: 49
- - peel or tail: 48, 50
-The analysis will be displayed for the unrolled and/or vectorized loops: 49
+ - unrolled and/or vectorized: 50
+ - peel or tail: 49, 51
+The analysis will be displayed for the unrolled and/or vectorized loops: 50
 
-Section 1.6.1: Binary (unrolled and/or vectorized) loop #49
+Section 1.6.1: Binary (unrolled and/or vectorized) loop #50
 ===========================================================
 
 Type of elements and instruction set
@@ -531,16 +531,16 @@ Bottlenecks
 -----------
 By removing all these bottlenecks, you can lower the cost of an iteration from 2.00 to 1.25 cycles (1.60x speedup).
 
-Section 1.7: Source loop ending at line 183
+Section 1.7: Source loop ending at line 170
 ===========================================
 
 Composition and unrolling
 -------------------------
 It is composed of the following loops [ID (first-last source line)]:
- - 46 (15-187)
- - 47 (15-183)
+ - 47 (15-174)
+ - 48 (15-170)
 and is multi-versionned but not unrolled (including vectorization).
-The analysis will be displayed for the first found loop: 46
+The analysis will be displayed for the first found loop: 47
 
 Type of elements and instruction set
 ------------------------------------
@@ -556,16 +556,16 @@ Matching between your loop (in the source code) and the binary loop
 The binary loop is composed of 4 FP arithmetical operations:
  - 3: multiply
  - 1: square root
-The binary loop is loading 72 bytes (9 double precision FP elements).
+The binary loop is loading 40 bytes (5 double precision FP elements).
 The binary loop is storing 32 bytes (4 double precision FP elements).
 
-Arithmetic intensity is 0.04 FP operations per loaded or stored byte.
+Arithmetic intensity is 0.06 FP operations per loaded or stored byte.
 
 Cycles and resources usage
 --------------------------
 Assuming all data fit into the L1 cache, each iteration of the binary loop takes 14.00 cycles. At this rate:
  - 1% of peak computational performance is reached (0.29 out of 16.00 FLOP per cycle (GFLOPS @ 1GHz))
- - 8% of peak load performance is reached (5.14 out of 64.00 bytes loaded per cycle (GB/s @ 1GHz))
+ - 4% of peak load performance is reached (2.86 out of 64.00 bytes loaded per cycle (GB/s @ 1GHz))
  - 7% of peak store performance is reached (2.29 out of 32.00 bytes stored per cycle (GB/s @ 1GHz))
 
 Pathological cases
@@ -681,9 +681,9 @@ Section 1.10: Source loop ending at line 517
 
 Composition and unrolling
 -------------------------
-It is composed of the loop 7
+It is composed of the loop 8
 and is not unrolled or unrolled with no peel/tail code (including vectorization).
-The analysis will be displayed for the first found loop: 7
+The analysis will be displayed for the first found loop: 8
 
 Type of elements and instruction set
 ------------------------------------
@@ -744,4 +744,4 @@ Try to reduce the number of FP add instructions.
 By removing all these bottlenecks, you can lower the cost of an iteration from 3.00 to 2.50 cycles (1.20x speedup).
 
 
-Loops with the following IDs cannot be analyzed: 11, 21, 36, 51
+Loops with the following IDs cannot be analyzed: 12, 20, 35, 0
