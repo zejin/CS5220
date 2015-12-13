@@ -24,7 +24,7 @@ Info: Assuming lines 82 and 84 correspond to the same source loop
 Section 1: Function: main
 =========================
 
-These loops are supposed to be defined in: /home/zj58/cs5220/OpenMP/sim.c
+These loops are supposed to be defined in: /home/zj58/cs5220/OpenMP/0/sim.c
 
 Section 1.1: Source loop ending at line 51
 ==========================================
