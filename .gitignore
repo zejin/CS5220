@@ -7,3 +7,5 @@ omp
 *.so
 .RData
 r000ah
+RngStream.optrpt
+sim.optrpt

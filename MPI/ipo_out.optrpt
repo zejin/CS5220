@@ -1,0 +1,416 @@
+
+Begin optimization report for: main(int, char **)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at RngStream.c(277,4) inlined into sim.c(163,3)
+   remark #15521: loop was not vectorized: explicitly compute the iteration count before executing the loop or try using canonical loop form
+LOOP END
+
+LOOP BEGIN at RngStream.c(382,4) inlined into sim.c(163,3)
+   remark #15388: vectorization support: reference nextSeed has aligned access   [ RngStream.c(383,7) ]
+   remark #15388: vectorization support: reference seed has aligned access   [ RngStream.c(383,7) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(383,21) ]
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 6 
+   remark #15477: vector loop cost: 3.250 
+   remark #15478: estimated potential speedup: 1.440 
+   remark #15479: lightweight vector operations: 3 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15487: type converts: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at RngStream.c(382,4) inlined into sim.c(163,3)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at sim.c(167,3)
+   remark #15382: vectorization support: call to function RngStream_CreateStream(const char *) cannot be vectorized   [ sim.c(168,19) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+
+LOOP BEGIN at sim.c(167,3)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at sim.c(182,3)
+   remark #15388: vectorization support: reference index has aligned access   [ sim.c(183,5) ]
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 4 
+   remark #15477: vector loop cost: 0.370 
+   remark #15478: estimated potential speedup: 9.370 
+   remark #15479: lightweight vector operations: 3 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at sim.c(182,3)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at sim.c(187,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at sim.c(189,5)
+      remark #15382: vectorization support: call to function RngStream_RandU01(RngStream) cannot be vectorized   [ sim.c(15,15) ]
+      remark #15382: vectorization support: call to function RngStream_RandU01(RngStream) cannot be vectorized   [ sim.c(16,15) ]
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   LOOP END
+
+   LOOP BEGIN at sim.c(194,5)
+      remark #15382: vectorization support: call to function RngStream_RandU01(RngStream) cannot be vectorized   [ sim.c(15,15) ]
+      remark #15382: vectorization support: call to function RngStream_RandU01(RngStream) cannot be vectorized   [ sim.c(16,15) ]
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   LOOP END
+
+   LOOP BEGIN at sim.c(45,3) inlined into sim.c(198,5)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at sim.c(47,5) inlined into sim.c(198,5)
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at sim.c(53,9) inlined into sim.c(198,5)
+            remark #15388: vectorization support: reference X has aligned access   [ sim.c(54,11) ]
+            remark #15388: vectorization support: reference X has aligned access   [ sim.c(54,11) ]
+            remark #15399: vectorization support: unroll factor set to 8
+            remark #15300: LOOP WAS VECTORIZED
+            remark #15448: unmasked aligned unit stride loads: 2 
+            remark #15475: --- begin vector loop cost summary ---
+            remark #15476: scalar loop cost: 19 
+            remark #15477: vector loop cost: 3.000 
+            remark #15478: estimated potential speedup: 5.120 
+            remark #15479: lightweight vector operations: 12 
+            remark #15488: --- end vector loop cost summary ---
+         LOOP END
+
+         LOOP BEGIN at sim.c(53,9) inlined into sim.c(198,5)
+         <Remainder>
+            remark #15388: vectorization support: reference X has aligned access   [ sim.c(54,11) ]
+            remark #15388: vectorization support: reference X has aligned access   [ sim.c(54,11) ]
+            remark #15301: REMAINDER LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at sim.c(53,9) inlined into sim.c(198,5)
+         <Remainder>
+         LOOP END
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at sim.c(71,3) inlined into sim.c(198,5)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at sim.c(73,5) inlined into sim.c(198,5)
+         remark #15388: vectorization support: reference XX has aligned access   [ sim.c(74,7) ]
+         remark #15388: vectorization support: reference XX has aligned access   [ sim.c(74,7) ]
+         remark #15388: vectorization support: reference row_sum has aligned access   [ sim.c(74,7) ]
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15449: unmasked aligned unit stride stores: 1 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 137 
+         remark #15477: vector loop cost: 5.500 
+         remark #15478: estimated potential speedup: 18.860 
+         remark #15479: lightweight vector operations: 10 
+         remark #15480: medium-overhead vector operations: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at sim.c(73,5) inlined into sim.c(198,5)
+      <Remainder>
+         remark #15388: vectorization support: reference XX has aligned access   [ sim.c(74,7) ]
+         remark #15388: vectorization support: reference XX has aligned access   [ sim.c(74,7) ]
+         remark #15388: vectorization support: reference row_sum has aligned access   [ sim.c(74,7) ]
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at sim.c(73,5) inlined into sim.c(198,5)
+      <Remainder>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at sim.c(45,3) inlined into sim.c(199,5)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at sim.c(47,5) inlined into sim.c(199,5)
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at sim.c(53,9) inlined into sim.c(199,5)
+            remark #15388: vectorization support: reference X has aligned access   [ sim.c(54,11) ]
+            remark #15388: vectorization support: reference X has aligned access   [ sim.c(54,11) ]
+            remark #15399: vectorization support: unroll factor set to 8
+            remark #15300: LOOP WAS VECTORIZED
+            remark #15448: unmasked aligned unit stride loads: 2 
+            remark #15475: --- begin vector loop cost summary ---
+            remark #15476: scalar loop cost: 19 
+            remark #15477: vector loop cost: 3.000 
+            remark #15478: estimated potential speedup: 5.120 
+            remark #15479: lightweight vector operations: 12 
+            remark #15488: --- end vector loop cost summary ---
+         LOOP END
+
+         LOOP BEGIN at sim.c(53,9) inlined into sim.c(199,5)
+         <Remainder>
+            remark #15388: vectorization support: reference X has aligned access   [ sim.c(54,11) ]
+            remark #15388: vectorization support: reference X has aligned access   [ sim.c(54,11) ]
+            remark #15301: REMAINDER LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at sim.c(53,9) inlined into sim.c(199,5)
+         <Remainder>
+         LOOP END
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at sim.c(71,3) inlined into sim.c(199,5)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at sim.c(73,5) inlined into sim.c(199,5)
+         remark #15388: vectorization support: reference XX has aligned access   [ sim.c(74,7) ]
+         remark #15388: vectorization support: reference XX has aligned access   [ sim.c(74,7) ]
+         remark #15388: vectorization support: reference row_sum has aligned access   [ sim.c(74,7) ]
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15449: unmasked aligned unit stride stores: 1 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 137 
+         remark #15477: vector loop cost: 5.500 
+         remark #15478: estimated potential speedup: 18.860 
+         remark #15479: lightweight vector operations: 10 
+         remark #15480: medium-overhead vector operations: 1 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at sim.c(73,5) inlined into sim.c(199,5)
+      <Remainder>
+         remark #15388: vectorization support: reference XX has aligned access   [ sim.c(74,7) ]
+         remark #15388: vectorization support: reference XX has aligned access   [ sim.c(74,7) ]
+         remark #15388: vectorization support: reference row_sum has aligned access   [ sim.c(74,7) ]
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at sim.c(73,5) inlined into sim.c(199,5)
+      <Remainder>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at sim.c(88,3) inlined into sim.c(201,12)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at sim.c(90,5) inlined into sim.c(201,12)
+         remark #15388: vectorization support: reference XX has aligned access   [ sim.c(92,7) ]
+         remark #15388: vectorization support: reference YY has aligned access   [ sim.c(92,7) ]
+         remark #15399: vectorization support: unroll factor set to 8
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15448: unmasked aligned unit stride loads: 2 
+         remark #15475: --- begin vector loop cost summary ---
+         remark #15476: scalar loop cost: 15 
+         remark #15477: vector loop cost: 1.750 
+         remark #15478: estimated potential speedup: 6.570 
+         remark #15479: lightweight vector operations: 7 
+         remark #15488: --- end vector loop cost summary ---
+      LOOP END
+
+      LOOP BEGIN at sim.c(90,5) inlined into sim.c(201,12)
+      <Remainder>
+         remark #15388: vectorization support: reference XX has aligned access   [ sim.c(92,7) ]
+         remark #15388: vectorization support: reference YY has aligned access   [ sim.c(92,7) ]
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at sim.c(90,5) inlined into sim.c(201,12)
+      <Remainder>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at sim.c(205,5)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at sim.c(26,3) inlined into sim.c(206,7)
+         remark #15382: vectorization support: call to function RngStream_RandU01(RngStream) cannot be vectorized   [ RngStream.c(517,38) ]
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization
+      LOOP END
+
+      LOOP BEGIN at sim.c(105,3) inlined into sim.c(207,19)
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at sim.c(107,5) inlined into sim.c(207,19)
+            remark #15388: vectorization support: reference XX has aligned access   [ sim.c(109,7) ]
+            remark #15388: vectorization support: reference P has aligned access   [ sim.c(109,7) ]
+            remark #15399: vectorization support: unroll factor set to 4
+            remark #15300: LOOP WAS VECTORIZED
+            remark #15448: unmasked aligned unit stride loads: 1 
+            remark #15450: unmasked unaligned unit stride loads: 1 
+            remark #15458: masked indexed (or gather) loads: 1 
+            remark #15475: --- begin vector loop cost summary ---
+            remark #15476: scalar loop cost: 21 
+            remark #15477: vector loop cost: 7.500 
+            remark #15478: estimated potential speedup: 2.720 
+            remark #15479: lightweight vector operations: 8 
+            remark #15480: medium-overhead vector operations: 2 
+            remark #15488: --- end vector loop cost summary ---
+         LOOP END
+
+         LOOP BEGIN at sim.c(107,5) inlined into sim.c(207,19)
+         <Remainder>
+            remark #15388: vectorization support: reference XX has aligned access   [ sim.c(109,7) ]
+            remark #15388: vectorization support: reference P has aligned access   [ sim.c(109,7) ]
+            remark #15301: REMAINDER LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at sim.c(107,5) inlined into sim.c(207,19)
+         <Remainder>
+         LOOP END
+      LOOP END
+   LOOP END
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at sim.c(137,3)
+   remark #15535: loop was not vectorized: loop contains switch statement. Consider using if-else statement.   [ sim.c(138,5) ]
+LOOP END
+
+LOOP BEGIN at RngStream.c(269,4) inlined into sim.c(163,3)
+   remark #15341: loop was not vectorized: nonstandard loop is not a vectorization candidate
+LOOP END
+===========================================================================
+
+Begin optimization report for: RngStream_CreateStream(const char *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at RngStream.c(327,4)
+   remark #15388: vectorization support: reference nextSeed has aligned access   [ RngStream.c(328,29) ]
+   remark #15389: vectorization support: reference g has unaligned access   [ RngStream.c(328,29) ]
+   remark #15389: vectorization support: reference g has unaligned access   [ RngStream.c(328,18) ]
+   remark #15389: vectorization support: reference g has unaligned access   [ RngStream.c(328,7) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15451: unmasked unaligned unit stride stores: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 12 
+   remark #15477: vector loop cost: 4.500 
+   remark #15478: estimated potential speedup: 1.330 
+   remark #15479: lightweight vector operations: 12 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at RngStream.c(327,4)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at RngStream.c(131,4) inlined into RngStream.c(330,4)
+   remark #15388: vectorization support: reference x has aligned access   [ RngStream.c(132,14) ]
+   remark #15388: vectorization support: reference x has aligned access   [ RngStream.c(133,14) ]
+   remark #15388: vectorization support: reference x has aligned access   [ RngStream.c(133,14) ]
+   remark #15388: vectorization support: reference x has aligned access   [ RngStream.c(134,14) ]
+   remark #15388: vectorization support: reference x has aligned access   [ RngStream.c(134,14) ]
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(109,12) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(110,11) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(112,12) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(116,14) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(109,12) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(110,11) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(112,12) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(116,14) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(109,12) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(110,11) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(112,12) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(116,14) ]
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15449: unmasked aligned unit stride stores: 3 
+   remark #15460: masked strided loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 240 
+   remark #15477: vector loop cost: 234.500 
+   remark #15478: estimated potential speedup: 0.940 
+   remark #15479: lightweight vector operations: 273 
+   remark #15480: medium-overhead vector operations: 2 
+   remark #15487: type converts: 21 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at RngStream.c(136,4) inlined into RngStream.c(330,4)
+   remark #15388: vectorization support: reference nextSeed has aligned access   [ RngStream.c(137,7) ]
+   remark #15388: vectorization support: reference x has aligned access   [ RngStream.c(137,7) ]
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 4 
+   remark #15477: vector loop cost: 1.500 
+   remark #15478: estimated potential speedup: 1.710 
+   remark #15479: lightweight vector operations: 2 
+   remark #15480: medium-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at RngStream.c(136,4) inlined into RngStream.c(330,4)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at RngStream.c(131,4) inlined into RngStream.c(331,4)
+   remark #15388: vectorization support: reference x has aligned access   [ RngStream.c(132,14) ]
+   remark #15388: vectorization support: reference x has aligned access   [ RngStream.c(133,14) ]
+   remark #15388: vectorization support: reference x has aligned access   [ RngStream.c(133,14) ]
+   remark #15388: vectorization support: reference x has aligned access   [ RngStream.c(134,14) ]
+   remark #15388: vectorization support: reference x has aligned access   [ RngStream.c(134,14) ]
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(109,12) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(110,11) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(112,12) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(116,14) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(109,12) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(110,11) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(112,12) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(116,14) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(109,12) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(110,11) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(112,12) ]
+   remark #15410: vectorization support: conversion from int to float will be emulated   [ RngStream.c(116,14) ]
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15449: unmasked aligned unit stride stores: 3 
+   remark #15460: masked strided loads: 3 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 246 
+   remark #15477: vector loop cost: 282.500 
+   remark #15478: estimated potential speedup: 0.850 
+   remark #15479: lightweight vector operations: 279 
+   remark #15480: medium-overhead vector operations: 2 
+   remark #15487: type converts: 21 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at RngStream.c(136,4) inlined into RngStream.c(331,4)
+   remark #15389: vectorization support: reference nextSeed has unaligned access   [ RngStream.c(137,7) ]
+   remark #15388: vectorization support: reference x has aligned access   [ RngStream.c(137,7) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 9 
+   remark #15477: vector loop cost: 3.000 
+   remark #15478: estimated potential speedup: 1.500 
+   remark #15479: lightweight vector operations: 2 
+   remark #15481: heavy-overhead vector operations: 1 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at RngStream.c(136,4) inlined into RngStream.c(331,4)
+<Remainder>
+LOOP END
+===========================================================================

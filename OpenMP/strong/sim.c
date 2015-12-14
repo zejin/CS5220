@@ -49,6 +49,7 @@ void Double_Center(int n, int p, double *X, double *XX) {
         part_sum = 0.0;
 
         //XX[i, j] = |X[i, ] - X[j, ]|
+        #pragma vector aligned
         for (k = 0; k < p; ++k) {
           elem = X[i*p+k] - X[j*p+k];
           part_sum += elem * elem;
@@ -118,7 +119,8 @@ int main(int argc, char** argv)
   //
   double t0 = omp_get_wtime();
 
-  int i, j;
+  int rank, i, j;
+  int nthr = 8;
   int nobs = 25;
   int ndim = 5;
   int nrep = 24;
@@ -126,10 +128,11 @@ int main(int argc, char** argv)
   double alpha = 0.1;
 
   extern char* optarg;
-  const char* optstring = "o:d:r:p:a:";
+  const char* optstring = "t:o:d:r:p:a:";
   int c;
   while ((c = getopt(argc, argv, optstring)) != -1) {
     switch (c) {
+    case 't': nthr = atoi(optarg); break; // number of threads
     case 'o': nobs = atoi(optarg); break; // number of observations
     case 'd': ndim = atoi(optarg); break; // number of dimensions
     case 'r': nrep = atoi(optarg); break; // number of repetitions
@@ -137,8 +140,11 @@ int main(int argc, char** argv)
     case 'a': alpha = atof(optarg); break; // significance level
     }
   }
+
+  assert(nrep % nthr == 0);
   
   printf("====================\n");
+  printf("nthr: %d\n", nthr);
   printf("nobs: %d\n", nobs);
   printf("ndim: %d\n", ndim);
   printf("nrep: %d\n", nrep);
@@ -164,57 +170,66 @@ int main(int argc, char** argv)
   int count, local;
   int global = 0;
 
-  index = (int*) malloc(nobs*sizeof(int));
-  x = (double*) malloc(nobs*ndim*sizeof(double));
-  y = (double*) malloc(nobs*ndim*sizeof(double));
-  xx = (double*) malloc(nobs*nobs*sizeof(double));
-  yy = (double*) malloc(nobs*nobs*sizeof(double));
-  local = 0;
+  omp_set_num_threads(nthr);
 
-  #pragma vector aligned
-  for (i = 0; i < nobs; ++i) {
-    index[i] = i;
-  }
+  #pragma omp parallel default(shared) \
+  private(rank, i, j, index, x, y, xx, yy, stat, stat_perm, count, local) \
+  reduction(+:global)
+  {
+    rank = omp_get_thread_num();
 
-  #pragma vector aligned
-  for (j = 0; j < nrep; ++j) {
+    index = (int*) malloc(nobs*sizeof(int));
+    x = (double*) malloc(nobs*ndim*sizeof(double));
+    y = (double*) malloc(nobs*ndim*sizeof(double));
+    xx = (double*) malloc(nobs*nobs*sizeof(double));
+    yy = (double*) malloc(nobs*nobs*sizeof(double));
+    local = 0;
+
     #pragma vector aligned
-    for (i = 0; i < nobs*ndim; ++i) {
-      x[i] = RngStream_RandNormal(RngArray[j]);
+    for (i = 0; i < nobs; ++i) {
+      index[i] = i;
     }
 
     #pragma vector aligned
-    for (i = 0; i < nobs*ndim; ++i) {
-      y[i] = RngStream_RandNormal(RngArray[j]);
-    }
-
-    Double_Center(nobs, ndim, x, xx);
-    Double_Center(nobs, ndim, y, yy);
-
-    stat = Inner_Prod(nobs, xx, yy);
-    count = 0;
-
-    #pragma vector aligned
-    for (i = 0; i < nperm; ++i) {
-      RngStream_RandShuffle(RngArray[j], index, nobs);
-      stat_perm = Inner_Prod_Perm(nobs, index, xx, yy);
-      if (stat_perm > stat) {
-        count += 1;
+    for (j = 0; j < nrep/nthr; ++j) {
+      #pragma vector aligned
+      for (i = 0; i < nobs*ndim; ++i) {
+        x[i] = RngStream_RandNormal(RngArray[rank*nrep/nthr+j]);
       }
+
+      #pragma vector aligned
+      for (i = 0; i < nobs*ndim; ++i) {
+        y[i] = RngStream_RandNormal(RngArray[rank*nrep/nthr+j]);
+      }
+
+      Double_Center(nobs, ndim, x, xx);
+      Double_Center(nobs, ndim, y, yy);
+
+      stat = Inner_Prod(nobs, xx, yy);
+      count = 0;
+
+      #pragma vector aligned
+      for (i = 0; i < nperm; ++i) {
+        RngStream_RandShuffle(RngArray[rank*nrep/nthr+j], index, nobs);
+        stat_perm = Inner_Prod_Perm(nobs, index, xx, yy);
+        if (stat_perm > stat) {
+          count += 1;
+        }
+      }
+
+      if ((double) count / nperm < alpha) {
+        local += 1;  
+      }  
     }
 
-    if ((double) count / nperm < alpha) {
-      local += 1;  
-    }  
+    global += local;
+
+    free(index);
+    free(x);
+    free(y);
+    free(xx);
+    free(yy);
   }
-
-  global += local;
-
-  free(index);
-  free(x);
-  free(y);
-  free(xx);
-  free(yy);
 
   double t1 = omp_get_wtime();
   

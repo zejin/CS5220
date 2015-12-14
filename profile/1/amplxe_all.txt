@@ -1,0 +1,16 @@
+Function                    Module        CPU Time  Spin Time  Overhead Time
+--------------------------  ------------  --------  ---------  -------------
+main                        sim            26.868s         0s             0s
+U01                         sim             5.804s         0s             0s
+RngStream_RandU01           sim             0.464s         0s             0s
+log                         sim             0.156s         0s             0s
+cos                         sim             0.112s         0s             0s
+[Outside any known module]  [Unknown]       0.058s         0s             0s
+log                         sim             0.022s         0s             0s
+RngStream_RandNormal        sim             0.012s         0s             0s
+cos                         sim             0.009s         0s             0s
+RngStream_CreateStream      sim             0.002s         0s             0s
+[Import thunk calloc]       sim             0.001s         0s             0s
+__libc_calloc               libc-2.12.so    0.001s         0s             0s
+_int_free                   libc-2.12.so    0.001s         0s             0s
+_int_malloc                 libc-2.12.so    0.001s         0s             0s

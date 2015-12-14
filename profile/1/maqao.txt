@@ -20,32 +20,30 @@ Warning: Detected a function call instruction:
 Warning: Ignoring called function instructions
 Warning: Detected a function call instruction:
 Warning: Ignoring called function instructions
-Info: Assuming lines 183 and 188 correspond to the same source loop
+Info: Assuming lines 184 and 189 correspond to the same source loop
 Section 1: Function: main
 =========================
 
-These loops are supposed to be defined in: /home/zj58/cs5220/OpenMP/1/sim.c
+These loops are supposed to be defined in: /home/zj58/cs5220/profile/1/sim.c
 
-Section 1.1: Source loop ending at line 54
+Section 1.1: Source loop ending at line 55
 ==========================================
 
 Composition and unrolling
 -------------------------
 It is composed of the following loops [ID (first-last source line)]:
- - 18 (52-54)
- - 19 (52-54)
- - 20 (52-54)
- - 21 (52-54)
- - 28 (52-54)
- - 29 (52-54)
- - 30 (52-54)
- - 31 (52-54)
+ - 18 (53-55)
+ - 19 (53-55)
+ - 20 (53-55)
+ - 27 (53-55)
+ - 28 (53-55)
+ - 29 (53-55)
 and is unrolled by 32 (including vectorization).
 
 The following loops are considered as:
- - unrolled and/or vectorized: 20, 30
- - peel or tail: 18, 21, 28, 31
-The analysis will be displayed for the unrolled and/or vectorized loops: 20, 30
+ - unrolled and/or vectorized: 20, 29
+ - peel or tail: 18, 27
+The analysis will be displayed for the unrolled and/or vectorized loops: 20, 29
 
 Section 1.1.1: Binary (unrolled and/or vectorized) loop #20
 ===========================================================
@@ -83,7 +81,7 @@ The ROB-read stage is a bottleneck.
 By removing all these bottlenecks, you can lower the cost of an iteration from 8.50 to 8.00 cycles (1.06x speedup).
 
 
-Section 1.1.2: Binary (unrolled and/or vectorized) loop #30
+Section 1.1.2: Binary (unrolled and/or vectorized) loop #29
 ===========================================================
 
 Type of elements and instruction set
@@ -118,24 +116,24 @@ Bottlenecks
 The ROB-read stage is a bottleneck.
 By removing all these bottlenecks, you can lower the cost of an iteration from 8.50 to 8.00 cycles (1.06x speedup).
 
-Section 1.2: Source loop ending at line 73
+Section 1.2: Source loop ending at line 74
 ==========================================
 
 Composition and unrolling
 -------------------------
 It is composed of the following loops [ID (first-last source line)]:
- - 13 (72-73)
- - 14 (72-73)
- - 15 (72-73)
- - 23 (72-73)
- - 24 (72-73)
- - 25 (72-73)
+ - 13 (73-74)
+ - 14 (73-74)
+ - 15 (73-74)
+ - 22 (73-74)
+ - 23 (73-74)
+ - 24 (73-74)
 and is unrolled by 8 (including vectorization).
 
 The following loops are considered as:
- - unrolled and/or vectorized: 15, 25
- - peel or tail: 13, 23
-The analysis will be displayed for the unrolled and/or vectorized loops: 15, 25
+ - unrolled and/or vectorized: 15, 24
+ - peel or tail: 13, 22
+The analysis will be displayed for the unrolled and/or vectorized loops: 15, 24
 
 Section 1.2.1: Binary (unrolled and/or vectorized) loop #15
 ===========================================================
@@ -189,7 +187,7 @@ Try to reduce the number of FP add instructions.
 By removing all these bottlenecks, you can lower the cost of an iteration from 8.00 to 7.50 cycles (1.07x speedup).
 
 
-Section 1.2.2: Binary (unrolled and/or vectorized) loop #25
+Section 1.2.2: Binary (unrolled and/or vectorized) loop #24
 ===========================================================
 
 Type of elements and instruction set
@@ -240,15 +238,15 @@ Try to reduce the number of FP add instructions.
 
 By removing all these bottlenecks, you can lower the cost of an iteration from 8.00 to 6.75 cycles (1.19x speedup).
 
-Section 1.3: Source loop ending at line 91
+Section 1.3: Source loop ending at line 92
 ==========================================
 
 Composition and unrolling
 -------------------------
 It is composed of the following loops [ID (first-last source line)]:
- - 9 (89-91)
- - 10 (89-91)
- - 11 (89-91)
+ - 9 (90-92)
+ - 10 (90-92)
+ - 11 (90-92)
 and is unrolled by 32 (including vectorization).
 
 The following loops are considered as:
@@ -296,15 +294,15 @@ For example, provide more information to your compiler:
 
 By removing all these bottlenecks, you can lower the cost of an iteration from 8.00 to 6.50 cycles (1.23x speedup).
 
-Section 1.4: Source loop ending at line 108
+Section 1.4: Source loop ending at line 109
 ===========================================
 
 Composition and unrolling
 -------------------------
 It is composed of the following loops [ID (first-last source line)]:
- - 4 (106-108)
- - 5 (106-108)
- - 6 (106-108)
+ - 4 (107-109)
+ - 5 (107-109)
+ - 6 (107-109)
 and is unrolled by 8 (including vectorization).
 
 The following loops are considered as:
@@ -355,14 +353,14 @@ Bottlenecks
 The ROB-read stage is a bottleneck.
 By removing all these bottlenecks, you can lower the cost of an iteration from 7.50 to 6.00 cycles (1.25x speedup).
 
-Section 1.5: Source loop ending at line 157
+Section 1.5: Source loop ending at line 158
 ===========================================
 
 Composition and unrolling
 -------------------------
-It is composed of the loop 36
+It is composed of the loop 34
 and is not unrolled or unrolled with no peel/tail code (including vectorization).
-The analysis will be displayed for the first found loop: 36
+The analysis will be displayed for the first found loop: 34
 
 Type of elements and instruction set
 ------------------------------------
@@ -398,22 +396,22 @@ Bottlenecks
 -----------
 By removing all these bottlenecks, you can lower the cost of an iteration from 2.00 to 0.75 cycles (2.67x speedup).
 
-Section 1.6: Source loop ending at line 176
+Section 1.6: Source loop ending at line 177
 ===========================================
 
 Composition and unrolling
 -------------------------
 It is composed of the following loops [ID (first-last source line)]:
- - 34 (175-176)
- - 35 (175-176)
+ - 32 (176-177)
+ - 33 (176-177)
 and is unrolled by 8 (including vectorization).
 
 The following loops are considered as:
- - unrolled and/or vectorized: 35
- - peel or tail: 34
-The analysis will be displayed for the unrolled and/or vectorized loops: 35
+ - unrolled and/or vectorized: 33
+ - peel or tail: 32
+The analysis will be displayed for the unrolled and/or vectorized loops: 33
 
-Section 1.6.1: Binary (unrolled and/or vectorized) loop #35
+Section 1.6.1: Binary (unrolled and/or vectorized) loop #33
 ===========================================================
 
 Type of elements and instruction set
@@ -449,16 +447,16 @@ Bottlenecks
 -----------
 By removing all these bottlenecks, you can lower the cost of an iteration from 2.00 to 0.75 cycles (2.67x speedup).
 
-Section 1.7: Source loop ending at line 183
+Section 1.7: Source loop ending at line 184
 ===========================================
 
 Composition and unrolling
 -------------------------
 It is composed of the following loops [ID (first-last source line)]:
- - 32 (15-188)
- - 33 (15-183)
+ - 30 (15-189)
+ - 31 (15-184)
 and is multi-versionned but not unrolled (including vectorization).
-The analysis will be displayed for the first found loop: 32
+The analysis will be displayed for the first found loop: 30
 
 Type of elements and instruction set
 ------------------------------------
@@ -511,9 +509,9 @@ Section 1.8: Source loop ending at line 270
 
 Composition and unrolling
 -------------------------
-It is composed of the loop 37
+It is composed of the loop 35
 and is not unrolled or unrolled with no peel/tail code (including vectorization).
-The analysis will be displayed for the first found loop: 37
+The analysis will be displayed for the first found loop: 35
 
 Type of elements and instruction set
 ------------------------------------
@@ -555,9 +553,9 @@ Section 1.9: Source loop ending at line 278
 
 Composition and unrolling
 -------------------------
-It is composed of the loop 38
+It is composed of the loop 36
 and is not unrolled or unrolled with no peel/tail code (including vectorization).
-The analysis will be displayed for the first found loop: 38
+The analysis will be displayed for the first found loop: 36
 
 Type of elements and instruction set
 ------------------------------------

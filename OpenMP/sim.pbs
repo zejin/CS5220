@@ -5,6 +5,7 @@
 #PBS -N sim
 #PBS -j oe
 
+module load cs5220
 cd $PBS_O_WORKDIR
 ./sim -t 8 -o 25 -d 5 -r 10000 -p 400 -a 0.1
 ./sim -t 8 -o 30 -d 5 -r 10000 -p 366 -a 0.1

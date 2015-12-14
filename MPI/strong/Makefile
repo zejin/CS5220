@@ -19,13 +19,13 @@ OMP_CFLAGS=$(CFLAGS) -openmp
 # Rules
 
 sim: sim.c RngStream.c
-	$(CC) $(OMP_CFLAGS) $^ -o $@
+	$(MPICC) $(MPI_CFLAGS) $^ -o $@ -lm
 
 foo: foo.c RngStream.c
-	$(CC) $(OMP_CFLAGS) $^ -o $@
+	$(MPICC) $(MPI_CFLAGS) $^ -o $@ -lm
 
 bar: bar.c RngStream.c
-	$(CC) $(OMP_CFLAGS) $^ -o $@
+	$(MPICC) $(MPI_CFLAGS) $^ -o $@
 
 .PHONY: clean
 
